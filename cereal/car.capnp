@@ -422,9 +422,9 @@ struct CarParams {
   fingerprintSource @49: FingerprintSource;
   networkLocation @50 :NetworkLocation;  # Where Panda/C2 is integrated into the car's CAN network
 
-  longcontrolEnabled @51  :Bool;
-  lateralsRatom @52 :LateralsRatom;
-  atomTuning @53 :AtomTuning;
+  longcontrolEnabled @54  :Bool;
+  lateralsRatom @55 :LateralsRatom;
+  atomTuning @56 :AtomTuning;
 
   struct AtomTuning {
     cvKPH @0 :List(Float32);

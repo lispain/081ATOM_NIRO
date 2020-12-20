@@ -452,7 +452,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1),
   },
 
-   EventName.laneChangeManual: {
+  EventName.laneChangeManual: {
     ET.WARNING: Alert(
       "Steer Manual Lane Change",
       "Monitor Other Vehicles",

@@ -349,7 +349,8 @@ static void ui_draw_world(UIState *s) {
   ui_draw_vision_lane_lines(s);
 
   // Draw lead indicators if openpilot is handling longitudinal
-  if (s->longitudinal_control) {
+  //if (s->longitudinal_control) {
+  if( true ) {
     if (scene->lead_data[0].getStatus()) {
       draw_lead(s, scene->lead_data[0]);
     }
@@ -393,7 +394,7 @@ static void ui_draw_vision_maxspeed(UIState *s) {
     snprintf(maxspeed_str, sizeof(maxspeed_str), "%d", maxspeed_calc);
     ui_draw_text(s->vg, text_x, 242, maxspeed_str, 48 * 2.5, COLOR_WHITE, s->font_sans_bold);
   } else {
-    ui_draw_text(s->vg, text_x, 242, "N/A", 42 * 2.5, COLOR_WHITE_ALPHA(100), s->font_sans_semibold);
+    ui_draw_text(s->vg, text_x, 242, "-", 42 * 2.5, COLOR_WHITE_ALPHA(100), s->font_sans_semibold);
   }
 }
 
@@ -423,7 +424,7 @@ static void ui_draw_debug(UIState *s)
   x_pos = ui_viz_rx + 300;
   y_pos = 100; 
 
-  ui_print( s, x_pos, y_pos+0,   "sR:%.2f,  Fan:%d", scene.liveParams.steerRatio, scene.fanSpeed );
+  ui_print( s, x_pos, y_pos+0,   "sR:%.2f,  Fan:%d  SL:%.2f", scene.liveParams.steerRatio, scene.fanSpeed, scene.live.speedlimit );
   ui_print( s, x_pos, y_pos+50,  "aO:%.2f, %.2f", scene.liveParams.angleOffset, scene.liveParams.angleOffsetAverage );
   ui_print( s, x_pos, y_pos+100, "sF:%.2f", scene.liveParams.stiffnessFactor );
   ui_print( s, x_pos, y_pos+200, "prob:%.2f, %.2f", scene.pathPlan.lProb, scene.pathPlan.rProb );

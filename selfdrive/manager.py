@@ -179,6 +179,7 @@ managed_processes = {
   "updated": "selfdrive.updated",
   "dmonitoringmodeld": ("selfdrive/modeld", ["./dmonitoringmodeld"]),
   "modeld": ("selfdrive/modeld", ["./modeld"]),
+  "mapd": ("selfdrive/mapd", ["./mapd.py"]),
   "rtshield": "selfdrive.rtshield",
 }
 
@@ -225,6 +226,7 @@ car_started_processes = [
   'camerad',
   'modeld',
   'proclogd',
+  'mapd',  
   'locationd',
   'clocksd',
 ]

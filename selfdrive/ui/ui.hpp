@@ -134,6 +134,16 @@ typedef struct UIScene {
   //cereal::CarControl::Reader car_control;
   cereal::PathPlan::Reader path_plan;
 
+  struct _LIVE_
+  {
+    cereal::LiveMapData::Reader MapData;
+    bool map_valid;
+    bool speedlimit_valid;
+    bool speedlimitahead_valid;
+    float speedlimit;
+    float speedlimitahead;
+    float speedlimitaheaddistance;
+  } live;
 
   // pathcoloring
   int lead_status1;

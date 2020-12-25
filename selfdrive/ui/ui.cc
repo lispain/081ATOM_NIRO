@@ -27,7 +27,7 @@ int write_param_float(float param, const char* param_name, bool persistent_param
 }
 
 void ui_init(UIState *s) {
-  s->sm = new SubMaster({"modelV2", "controlsState", "uiLayoutState", "liveCalibration", "radarState", "thermal", "frame",
+  s->sm = new SubMaster({"modelV2", "controlsState", "uiLayoutState", "liveCalibration", "radarState", "thermal", "frame", "liveMapData",
                          "health", "carParams", "ubloxGnss", "driverState", "dMonitoringState", "sensorEvents",
                          "carState", "pathPlan", "gpsLocationExternal", "liveMpc","liveParameters"});
 
@@ -266,6 +266,16 @@ void update_sockets(UIState *s) {
     scene.batteryPercent = scene.thermal.getBatteryPercent();
     scene.fanSpeed = scene.thermal.getFanSpeed();        
   }
+
+  if (sm.updated("liveMapData")) {
+    scene.live.MapData = sm["liveMapData"].getLiveMapData();
+    scene.live.map_valid = live.liveMapData.getMapValid();
+    scene.live.speedlimit = live.liveMapData.getSpeedLimit();
+    scene.live.speedlimit_valid = live.liveMapData.getSpeedLimitValid();
+    scene.live.speedlimitahead = live.liveMapData.getSpeedLimitAhead();
+    scene.live.speedlimitahead_valid = live.liveMapData.getSpeedLimitAheadValid();
+    scene.live.speedlimitaheaddistance = live.liveMapData.getSpeedLimitAheadDistance();
+  }  
   if (sm.updated("ubloxGnss")) {
     auto data = sm["ubloxGnss"].getUbloxGnss();
     if (data.which() == cereal::UbloxGnss::MEASUREMENT_REPORT) {

@@ -227,6 +227,8 @@ class Controls:
                                                  LaneChangeState.laneChangeFinishing]:
       self.events.add(EventName.laneChange)
 
+    print( 'can_rcv_error={}  CS.canValid={}'.format( self.can_rcv_error,  CS.canValid))
+
     if self.can_rcv_error or (not CS.canValid and self.sm.frame > 20 / DT_CTRL):
       self.events.add(EventName.canError)
     if (self.sm['health'].safetyModel != self.CP.safetyModel and self.sm.frame > 2 / DT_CTRL) or \

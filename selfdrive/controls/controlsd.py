@@ -492,7 +492,8 @@ class Controls:
       # send car controls over can
       can_sends = self.CI.apply(CC, self.sm, self.CP)
       self.model_sum  = self.CI.CC.model_sum
-      self.pm.send('sendcan', can_list_to_can_capnp(can_sends, msgtype='sendcan', valid=CS.canValid))
+      if self.CI.pcm_enable_cmd:
+        self.pm.send('sendcan', can_list_to_can_capnp(can_sends, msgtype='sendcan', valid=CS.canValid))
 
     force_decel = (self.sm['dMonitoringState'].awarenessStatus < 0.) or \
                   (self.state == State.softDisabling)

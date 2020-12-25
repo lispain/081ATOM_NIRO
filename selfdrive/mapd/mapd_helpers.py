@@ -3,18 +3,18 @@ import json
 import numpy as np
 from datetime import datetime
 from common.basedir import BASEDIR
-from common.op_params import opParams
+#from common.op_params import opParams
 from selfdrive.config import Conversions as CV
 from common.transformations.coordinates import LocalCoord, geodetic2ecef
 
 LOOKAHEAD_TIME = 10.
 MAPS_LOOKAHEAD_DISTANCE = 50 * LOOKAHEAD_TIME
 
-op_params = opParams()
+#op_params = opParams()
 
-traffic_lights = op_params.get('traffic_lights')
-traffic_lights_without_direction = op_params.get('traffic_lights_without_direction')
-rolling_stop = op_params.get('rolling_stop')
+#traffic_lights = op_params.get('traffic_lights')
+#traffic_lights_without_direction = op_params.get('traffic_lights_without_direction')
+#rolling_stop = op_params.get('rolling_stop')
 
 DEFAULT_SPEEDS_JSON_FILE = BASEDIR + "/selfdrive/mapd/default_speeds.json"
 DEFAULT_SPEEDS = {}

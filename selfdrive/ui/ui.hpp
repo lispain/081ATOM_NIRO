@@ -134,16 +134,7 @@ typedef struct UIScene {
   //cereal::CarControl::Reader car_control;
   cereal::PathPlan::Reader path_plan;
 
-  struct _LIVE_
-  {
-    cereal::LiveMapData::Reader MapData;
-    bool map_valid;
-    bool speedlimit_valid;
-    bool speedlimitahead_valid;
-    float speedlimit;
-    float speedlimitahead;
-    float speedlimitaheaddistance;
-  } live;
+
 
   // pathcoloring
   int lead_status1;
@@ -227,6 +218,17 @@ typedef struct UIScene {
     float yawRate;
     float posenetSpeed;
   } liveParams;
+
+  struct _LIVE_
+  {
+    cereal::LiveMapData::Reader MapData;
+    bool map_valid;
+    bool speedlimit_valid;
+    bool speedlimitahead_valid;
+    float speedlimit;
+    float speedlimitahead;
+    float speedlimitaheaddistance;
+  } live;
 
   struct _PathPlan
   {

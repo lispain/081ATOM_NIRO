@@ -269,12 +269,12 @@ void update_sockets(UIState *s) {
 
   if (sm.updated("liveMapData")) {
     scene.live.MapData = sm["liveMapData"].getLiveMapData();
-    scene.live.map_valid = live.liveMapData.getMapValid();
-    scene.live.speedlimit = live.liveMapData.getSpeedLimit();
-    scene.live.speedlimit_valid = live.liveMapData.getSpeedLimitValid();
-    scene.live.speedlimitahead = live.liveMapData.getSpeedLimitAhead();
-    scene.live.speedlimitahead_valid = live.liveMapData.getSpeedLimitAheadValid();
-    scene.live.speedlimitaheaddistance = live.liveMapData.getSpeedLimitAheadDistance();
+    scene.live.map_valid = scene.live.MapData.getMapValid();
+    scene.live.speedlimit = scene.live.MapData.getSpeedLimit();
+    scene.live.speedlimit_valid = scene.live.MapData.getSpeedLimitValid();
+    scene.live.speedlimitahead = scene.live.MapData.getSpeedLimitAhead();
+    scene.live.speedlimitahead_valid = scene.live.MapData.getSpeedLimitAheadValid();
+    scene.live.speedlimitaheaddistance = scene.live.MapData.getSpeedLimitAheadDistance();
   }  
   if (sm.updated("ubloxGnss")) {
     auto data = sm["ubloxGnss"].getUbloxGnss();

@@ -187,6 +187,8 @@ typedef struct UIScene {
   bool  leftBlindspot;
   bool  rightBlindspot;  
 
+  bool  is_ego_over_limit;
+
   cereal::CarState::GearShifter  getGearShifter;  
 
   struct _STATUS_

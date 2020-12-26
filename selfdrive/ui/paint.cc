@@ -501,7 +501,7 @@ static void ui_draw_debug(UIState *s)
 
   ui_print( s, x_pos, y_pos+400, "lW:%.2f  cpuPerc:%d", scene.pathPlan.laneWidth, scene.kegman.cpuPerc );
   ui_print( s, x_pos, y_pos+450, "Poly:%.2f, %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly );
-  ui_print( s, x_pos, y_pos+500, "map:%d", sscene.live.map_valid );
+  ui_print( s, x_pos, y_pos+500, "map:%d", scene.live.map_valid );
 
 
   

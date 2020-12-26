@@ -322,6 +322,7 @@ typedef struct UIState {
   int   is_awake_command;
   bool  is_ego_over_limit;
 
+
   // device state
   bool  awake;
   float light_sensor, accel_sensor, gyro_sensor;

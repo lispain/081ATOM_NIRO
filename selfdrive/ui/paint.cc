@@ -415,6 +415,7 @@ static void ui_draw_vision_speedlimit(UIState *s)
     speedlim_calc = speedlimit * 3.6 + 0.5;
   }
 
+
   bool is_speedlim_valid = s->scene.live.speedlimit_valid;
   float hysteresis_offset = 0.5;
   if (s->is_ego_over_limit) {

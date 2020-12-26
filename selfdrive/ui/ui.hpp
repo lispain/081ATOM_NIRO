@@ -35,6 +35,8 @@
 
 #define UI_BUF_COUNT 4
 
+#define SHOW_SPEEDLIMIT 1
+
 typedef struct Rect {
   int x, y, w, h;
   int centerX() const { return x + w / 2; }

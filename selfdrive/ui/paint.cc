@@ -377,7 +377,14 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   int viz_maxspeed_y = s->scene.viz_rect.y + (bdr_s*1.5);
   int viz_maxspeed_xo = 180;
 
+
+#ifdef SHOW_SPEEDLIMIT
+  viz_maxspeed_w += viz_maxspeed_xo;
+  viz_maxspeed_x += viz_maxspeed_w - (viz_maxspeed_xo * 2);
+#else
   viz_maxspeed_xo = 0;
+#endif
+  //viz_maxspeed_xo = 0;
 
   // Draw Background
   ui_draw_rect(s->vg, viz_maxspeed_x, viz_maxspeed_y, viz_maxspeed_w, viz_maxspeed_h, COLOR_BLACK_ALPHA(100), 30);
@@ -395,6 +402,65 @@ static void ui_draw_vision_maxspeed(UIState *s) {
     ui_draw_text(s->vg, text_x, 242, maxspeed_str, 48 * 2.5, COLOR_WHITE, s->font_sans_bold);
   } else {
     ui_draw_text(s->vg, text_x, 242, "-", 42 * 2.5, COLOR_WHITE_ALPHA(100), s->font_sans_semibold);
+  }
+}
+
+
+static void ui_draw_vision_speedlimit(UIState *s) 
+{
+  char speedlim_str[32];
+  float speedlimit = s->scene.speedlimit;
+  int speedlim_calc = speedlimit * 2.2369363 + 0.5;
+  if (s->is_metric) {
+    speedlim_calc = speedlimit * 3.6 + 0.5;
+  }
+
+  bool is_speedlim_valid = s->scene.speedlimit_valid;
+  float hysteresis_offset = 0.5;
+  if (s->is_ego_over_limit) {
+    hysteresis_offset = 0.0;
+  }
+  s->is_ego_over_limit = is_speedlim_valid && s->scene.v_ego > (speedlimit + s->speed_lim_off + hysteresis_offset);
+
+  int viz_speedlim_w = 180;
+  int viz_speedlim_h = 202;
+  int viz_speedlim_x = (s->scene.ui_viz_rx + (bdr_s*2));
+  int viz_speedlim_y = (box_y + (bdr_s*1.5));
+  if (!is_speedlim_valid) {
+    viz_speedlim_w -= 5;
+    viz_speedlim_h -= 10;
+    viz_speedlim_x += 9;
+    viz_speedlim_y += 5;
+  }
+  // Draw Background
+  NVGcolor color = COLOR_WHITE_ALPHA(100);
+  if (is_speedlim_valid && s->is_ego_over_limit) {
+    color = nvgRGBA(218, 111, 37, 180);
+  } else if (is_speedlim_valid) {
+    color = COLOR_WHITE;
+  }
+  ui_draw_rect(s->vg, viz_speedlim_x, viz_speedlim_y, viz_speedlim_w, viz_speedlim_h, color, is_speedlim_valid ? 30 : 15);
+
+  // Draw Border
+  if (is_speedlim_valid) {
+    ui_draw_rect(s->vg, viz_speedlim_x, viz_speedlim_y, viz_speedlim_w, viz_speedlim_h,
+                 s->is_ego_over_limit ? COLOR_OCHRE : COLOR_WHITE, 20, 10);
+  }
+  const float text_x = viz_speedlim_x + viz_speedlim_w / 2;
+  const float text_y = viz_speedlim_y + (is_speedlim_valid ? 50 : 45);
+  // Draw "Speed Limit" Text
+  nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
+  color = is_speedlim_valid && s->is_ego_over_limit ? COLOR_WHITE : COLOR_BLACK;
+  ui_draw_text(s->vg, text_x + (is_speedlim_valid ? 6 : 0), text_y, "SMART", 50, color, s->font_sans_semibold);
+  ui_draw_text(s->vg, text_x + (is_speedlim_valid ? 6 : 0), text_y + 40, "SPEED", 50, color, s->font_sans_semibold);
+
+  // Draw Speed Text
+  color = s->is_ego_over_limit ? COLOR_WHITE : COLOR_BLACK;
+  if (is_speedlim_valid) {
+    snprintf(speedlim_str, sizeof(speedlim_str), "%d", speedlim_calc);
+    ui_draw_text(s->vg, text_x, viz_speedlim_y + (is_speedlim_valid ? 170 : 165), speedlim_str, 42*2.3, color, s->font_sans_bold);
+  } else {
+    ui_draw_text(s->vg, text_x, viz_speedlim_y + (is_speedlim_valid ? 170 : 165), "N/A", 42*2.3, color, s->font_sans_semibold);
   }
 }
 
@@ -545,6 +611,14 @@ static void ui_draw_vision_event(UIState *s)
     ui_draw_gear( s );
     /* code */
   }    
+}
+
+static void ui_draw_vision_map(UIState *s) 
+{
+  const int map_size = 96;
+  const int map_x = (s->scene.ui_viz_rx + (map_size * 3) + (bdr_s * 3));
+  const int map_y = (footer_y + ((footer_h - map_size) / 2));
+  ui_draw_circle_image(s->vg, map_x, map_y, map_size, s->img_map, s->sscene.live.map_valid);
 }
 
 static void ui_draw_vision_face(UIState *s) {
@@ -925,7 +999,8 @@ static void bb_ui_draw_UI(UIState *s)
 //BB END: functions added for the display of various items
 
 
-static void ui_draw_vision_header(UIState *s) {
+static void ui_draw_vision_header(UIState *s) 
+{
   const Rect &viz_rect = s->scene.viz_rect;
   NVGpaint gradient = nvgLinearGradient(s->vg, viz_rect.x,
                         viz_rect.y+(header_h-(header_h/2.5)),
@@ -935,6 +1010,10 @@ static void ui_draw_vision_header(UIState *s) {
   ui_draw_rect(s->vg, viz_rect.x, viz_rect.y, viz_rect.w, header_h, gradient);
 
   ui_draw_vision_maxspeed(s);
+
+#ifdef SHOW_SPEEDLIMIT
+  ui_draw_vision_speedlimit(s);
+#endif  
   ui_draw_vision_speed(s);
   ui_draw_vision_event(s);
 
@@ -943,8 +1022,13 @@ static void ui_draw_vision_header(UIState *s) {
   //BB END: add new measures panel       
 }
 
-static void ui_draw_vision_footer(UIState *s) {
+static void ui_draw_vision_footer(UIState *s) 
+{
   ui_draw_vision_face(s);
+
+#ifdef SHOW_SPEEDLIMIT
+   ui_draw_vision_map(s);
+#endif  
 }
 
 static void ui_draw_vision_alert(UIState *s) {

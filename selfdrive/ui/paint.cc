@@ -409,13 +409,13 @@ static void ui_draw_vision_maxspeed(UIState *s) {
 static void ui_draw_vision_speedlimit(UIState *s) 
 {
   char speedlim_str[32];
-  float speedlimit = s->scene.speedlimit;
+  float speedlimit = s->scene.live.speedlimit;
   int speedlim_calc = speedlimit * 2.2369363 + 0.5;
   if (s->is_metric) {
     speedlim_calc = speedlimit * 3.6 + 0.5;
   }
 
-  bool is_speedlim_valid = s->scene.speedlimit_valid;
+  bool is_speedlim_valid = s->scene.live.speedlimit_valid;
   float hysteresis_offset = 0.5;
   if (s->is_ego_over_limit) {
     hysteresis_offset = 0.0;
@@ -490,7 +490,7 @@ static void ui_draw_debug(UIState *s)
   x_pos = ui_viz_rx + 300;
   y_pos = 100; 
 
-  ui_print( s, x_pos, y_pos+0,   "sR:%.2f,  Fan:%d  SL:%.1f", scene.liveParams.steerRatio, scene.fanSpeed, scene.live.speedlimit * 3.6 );
+  ui_print( s, x_pos, y_pos+0,   "sR:%.2f,  Fan:%d", scene.liveParams.steerRatio, scene.fanSpeed );
   ui_print( s, x_pos, y_pos+50,  "aO:%.2f, %.2f", scene.liveParams.angleOffset, scene.liveParams.angleOffsetAverage );
   ui_print( s, x_pos, y_pos+100, "sF:%.2f", scene.liveParams.stiffnessFactor );
   ui_print( s, x_pos, y_pos+200, "prob:%.2f, %.2f", scene.pathPlan.lProb, scene.pathPlan.rProb );

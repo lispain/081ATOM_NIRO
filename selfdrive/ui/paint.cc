@@ -501,6 +501,7 @@ static void ui_draw_debug(UIState *s)
 
   ui_print( s, x_pos, y_pos+400, "lW:%.2f  cpuPerc:%d", scene.pathPlan.laneWidth, scene.kegman.cpuPerc );
   ui_print( s, x_pos, y_pos+450, "Poly:%.2f, %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly );
+  ui_print( s, x_pos, y_pos+500, "map:%d", sscene.live.map_valid );
 
 
   
@@ -615,14 +616,6 @@ static void ui_draw_vision_event(UIState *s)
   }    
 }
 
-static void ui_draw_vision_map(UIState *s) 
-{
-  const int map_size = 96;
-  int ui_viz_rx = s->scene.viz_rect.x;  
-  const int map_x = (ui_viz_rx + (map_size * 3) + (bdr_s * 3));
-  const int map_y = (footer_y + ((footer_h - map_size) / 2));
-  ui_draw_circle_image(s->vg, map_x, map_y, map_size, s->img_map, s->sscene.live.map_valid);
-}
 
 static void ui_draw_vision_face(UIState *s) {
   const int face_size = 96;
@@ -1028,10 +1021,6 @@ static void ui_draw_vision_header(UIState *s)
 static void ui_draw_vision_footer(UIState *s) 
 {
   ui_draw_vision_face(s);
-
-#ifdef SHOW_SPEEDLIMIT
-   ui_draw_vision_map(s);
-#endif  
 }
 
 static void ui_draw_vision_alert(UIState *s) {

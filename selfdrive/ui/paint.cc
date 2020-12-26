@@ -425,7 +425,8 @@ static void ui_draw_vision_speedlimit(UIState *s)
 
   int viz_speedlim_w = 180;
   int viz_speedlim_h = 202;
-  int viz_speedlim_x = (s->scene.ui_viz_rx + (bdr_s*2));
+  int ui_viz_rx = scene.viz_rect.x;    
+  int viz_speedlim_x = (ui_viz_rx + (bdr_s*2));
   int viz_speedlim_y = (box_y + (bdr_s*1.5));
   if (!is_speedlim_valid) {
     viz_speedlim_w -= 5;
@@ -617,7 +618,8 @@ static void ui_draw_vision_event(UIState *s)
 static void ui_draw_vision_map(UIState *s) 
 {
   const int map_size = 96;
-  const int map_x = (s->scene.ui_viz_rx + (map_size * 3) + (bdr_s * 3));
+  int ui_viz_rx = scene.viz_rect.x;  
+  const int map_x = (ui_viz_rx + (map_size * 3) + (bdr_s * 3));
   const int map_y = (footer_y + ((footer_h - map_size) / 2));
   ui_draw_circle_image(s->vg, map_x, map_y, map_size, s->img_map, s->sscene.live.map_valid);
 }

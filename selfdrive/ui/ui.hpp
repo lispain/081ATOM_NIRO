@@ -187,7 +187,7 @@ typedef struct UIScene {
   bool  leftBlindspot;
   bool  rightBlindspot;  
 
-  bool  is_ego_over_limit;
+
 
   cereal::CarState::GearShifter  getGearShifter;  
 
@@ -318,11 +318,12 @@ typedef struct UIState {
 
 
   // timeouts
-  int is_awake_command;
-  int awake_timeout;
+  int   awake_timeout;
+  int   is_awake_command;
+  bool  is_ego_over_limit;
 
   // device state
-  bool awake;
+  bool  awake;
   float light_sensor, accel_sensor, gyro_sensor;
 
   bool started;
@@ -332,7 +333,7 @@ typedef struct UIState {
   uint64_t last_athena_ping;
   uint64_t started_frame;
 
-  bool alert_blinked;
+  bool  alert_blinked;
   float alert_blinking_alpha;
 
   track_vertices_data track_vertices;

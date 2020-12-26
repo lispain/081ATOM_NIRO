@@ -490,11 +490,12 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, ui_viz_rx+10, 50, "S:%d",  s->awake_timeout );
 
   x_pos = ui_viz_rx + 300;
-  y_pos = 100; 
+  y_pos = 100+250; 
 
   ui_print( s, x_pos, y_pos+0,   "sR:%.2f,  Fan:%d", scene.liveParams.steerRatio, scene.fanSpeed );
   ui_print( s, x_pos, y_pos+50,  "aO:%.2f, %.2f", scene.liveParams.angleOffset, scene.liveParams.angleOffsetAverage );
   ui_print( s, x_pos, y_pos+100, "sF:%.2f", scene.liveParams.stiffnessFactor );
+
   ui_print( s, x_pos, y_pos+200, "prob:%.2f, %.2f", scene.pathPlan.lProb, scene.pathPlan.rProb );
   ui_print( s, x_pos, y_pos+250, "prob:%.2f, %.2f, %.2f, %.2f", scene.lane_line_probs[0], scene.lane_line_probs[1], scene.lane_line_probs[2], scene.lane_line_probs[3] );
   ui_print( s, x_pos, y_pos+300, "edge:%.2f, %.2f", scene.road_edge_stds[0], scene.road_edge_stds[1] );

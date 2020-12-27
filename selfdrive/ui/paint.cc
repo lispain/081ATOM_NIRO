@@ -502,9 +502,12 @@ static void ui_draw_debug(UIState *s)
 
   ui_print( s, x_pos, y_pos+250, "lW:%.2f  cpuPerc:%d", scene.pathPlan.laneWidth, scene.kegman.cpuPerc );
   ui_print( s, x_pos, y_pos+300, "Poly:%.2f, %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly );
-  ui_print( s, x_pos, y_pos+350, "map:%d", scene.live.map_valid );
+  ui_print( s, x_pos, y_pos+350, "map:%d,%d", scene.live.map_valid, scene.live.speedlimitahead_valid  );
+  ui_print( s, x_pos, y_pos+400, "spd:%.1f, dist:%.1f", scene.live.speedlimitahead*3.6, scene.live.speedlimitaheaddistance  );
 
-
+    
+    
+    
   
 
   ui_print( s, 0, 1020, "%s", scene.alert.text1 );

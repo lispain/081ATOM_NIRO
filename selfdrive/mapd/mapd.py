@@ -588,12 +588,12 @@ def main():
     qt = QueryThread(1, "QueryThread", sharedParams=sharedParams)
     mt = MapsdThread(2, "MapsdThread", sharedParams=sharedParams)
     mggps = MessagedGPSThread(3, "MessagedGPSThread", sharedParams=sharedParams)
-    mg = MessagedThread(4, "MessagedThread", sharedParams=sharedParams)
+    #mg = MessagedThread(4, "MessagedThread", sharedParams=sharedParams)
 
     qt.start()
     mt.start()
     mggps.start()
-    mg.start()
+    #mg.start()
 
 if __name__ == "__main__":
     main()

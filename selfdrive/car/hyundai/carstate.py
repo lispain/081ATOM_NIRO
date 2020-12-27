@@ -47,7 +47,7 @@ class CarState(CarStateBase):
     self.SC = SpdController()
 
     self.sm = messaging.SubMaster(['liveMapData'])
-    self.pm = messaging.PubMaster(['liveTrafficData'])
+
 
   def update(self, cp, cp_cam):
     self.prev_cruise_main_button = self.cruise_main_button
@@ -159,14 +159,6 @@ class CarState(CarStateBase):
     self.park_brake = cp.vl["CGW1"]['CF_Gway_ParkBrakeSw']
     self.steer_state = cp.vl["MDPS12"]['CF_Mdps_ToiActive']  # 0 NOT ACTIVE, 1 ACTIVE
     self.lead_distance = cp.vl["SCC11"]['ACC_ObjDist']
-
-
-    #if ((ret.gasPressed) or (self.gas_pressed and not ret.gasPressed)) and self.engaged_when_gas_was_pressed and ret.vEgo > self.smartspeed:
-    #if (ret.gasPressed) and  ret.vEgo > 1:
-    #  dat = messaging.new_message('liveTrafficData')
-    #  dat.liveTrafficData.speedLimitValid = True
-    #  dat.liveTrafficData.speedLimit = ret.vEgo * 3.6
-    #  self.pm.send('liveTrafficData', dat)
 
     return ret
 

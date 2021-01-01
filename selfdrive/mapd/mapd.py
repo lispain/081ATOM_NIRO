@@ -34,7 +34,7 @@ class LoggerThread(threading.Thread):
         f = logging.Formatter('%(asctime)s %(processName)-10s %(name)s %(levelname)-8s %(message)s')
         h.setFormatter(f)
         self.logger.addHandler(h)
-        self.logger.setLevel(logging.CRITICAL) # set to logging.DEBUG to enable logging
+        self.logger.setLevel(logging.DEBUG) # set to logging.DEBUG to enable logging
         # self.logger.setLevel(logging.DEBUG) # set to logging.CRITICAL to disable logging
 
     def save_gps_data(self, gps, osm_way_id):
@@ -585,9 +585,9 @@ def main():
                     'speedLimittraffic' : speedLimittraffic, 'speedLimittrafficvalid' : speedLimittrafficvalid, \
                     'speedLimittrafficAdvisory' : speedLimittrafficAdvisory, 'speedLimittrafficAdvisoryvalid' : speedLimittrafficAdvisoryvalid, 'osm_way_id' : osm_way_id}
 
-    qt = QueryThread(1, "QueryThread", sharedParams=sharedParams)
-    mt = MapsdThread(2, "MapsdThread", sharedParams=sharedParams)
-    mggps = MessagedGPSThread(3, "MessagedGPSThread", sharedParams=sharedParams)
+    qt = QueryThread(1, "/data/0/log/QueryThread", sharedParams=sharedParams)
+    mt = MapsdThread(2, "/data/0/log/MapsdThread", sharedParams=sharedParams)
+    mggps = MessagedGPSThread(3, "/data/0/log/MessagedGPSThread", sharedParams=sharedParams)
     #mg = MessagedThread(4, "MessagedThread", sharedParams=sharedParams)
 
     qt.start()

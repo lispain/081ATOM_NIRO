@@ -508,11 +508,10 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, 0, 1078, "%s", scene.alert.text2 );
 
 
-  scene.live.speedlimitahead_valid = 1;
   if( scene.live.speedlimitahead_valid )
   {
     nvgFontSize(s->vg, 80);
-    ui_print( s, x_pos, y_pos+400, "spd:%.1f, dist:%.1f", scene.live.speedlimitahead*3.6, scene.live.speedlimitaheaddistance  );
+    ui_print( s, x_pos, y_pos+400, "SPD:%.1f, DIST:%.1f", scene.live.speedlimitahead*3.6, scene.live.speedlimitaheaddistance  );
   }  
 
   NVGcolor nColor = COLOR_WHITE;

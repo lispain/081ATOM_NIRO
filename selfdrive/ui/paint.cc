@@ -508,7 +508,7 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, 0, 1078, "%s", scene.alert.text2 );
 
 
-  if( scene.live.speedlimitahead_valid )
+  if( scene.live.speedlimitahead_valid  &&  (scene.nTimer & 0x01) )
   {
     nvgFontSize(s->vg, 80);
     ui_print( s, x_pos, y_pos+400, "SPD:%.1f, DIST:%.1f", scene.live.speedlimitahead*3.6, scene.live.speedlimitaheaddistance  );

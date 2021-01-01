@@ -107,7 +107,8 @@ class CarState(CarStateBase):
     self.main_on = (cp.vl["SCC11"]["MainMode_ACC"] != 0)
     self.acc_active = (cp.vl["SCC12"]['ACCMode'] != 0)
     self.update_atom( cp, cp_cam )
-    ret.cruiseState.available = self.main_on and self.cruiseState_modeSel != 3
+
+    ret.cruiseState.available = self.main_on and self.cruiseState_modeSel != 3  and  not ret.doorOpen  and  not ret.seatbeltUnlatched
     ret.cruiseState.enabled =  ret.cruiseState.available #and self.gearShifter == GearShifter.drive    
     ret.cruiseState.standstill = cp.vl["SCC11"]['SCCInfoDisplay'] == 4.
 

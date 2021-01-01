@@ -40,7 +40,7 @@ class LoggerThread(threading.Thread):
     def save_gps_data(self, gps, osm_way_id):
         try:
             location = [gps.speed, gps.bearing, gps.latitude, gps.longitude, gps.altitude, gps.accuracy, time.time(), osm_way_id]
-            with open("/data/openpilot/selfdrive/data_collection/gps-data", "a") as f:
+            with open("/data/0/log/gps-data", "a") as f:
                 f.write("{}\n".format(location))
         except:
             self.logger.error("Unable to write gps data to external file")
@@ -259,7 +259,7 @@ class MapsdThread(LoggerThread):
             if time.time() - start > 0.2:
                 print("Mapd MapsdThread lagging by: %s" % str(time.time() - start - 0.1))
             if time.time() - start < 0.1:
-                time.sleep(0.02)
+                time.sleep(0.05)
                 continue
             else:
                 start = time.time()
@@ -470,7 +470,7 @@ class MessagedGPSThread(LoggerThread):
             if time.time() - start > 0.2:
                 print("Mapd MessagedGPSThread lagging by: %s" % str(time.time() - start - 0.1))
             if time.time() - start < 0.1:
-                time.sleep(0.02)
+                time.sleep(0.05)
                 continue
             else:
                 start = time.time()
@@ -487,76 +487,6 @@ class MessagedGPSThread(LoggerThread):
             query_lock.release()
             self.logger.debug("setting last_gps to %s" % str(gps))
 
-class MessagedThread(LoggerThread):
-    def __init__(self, threadID, name, sharedParams={}):
-        # invoke parent constructor
-        LoggerThread.__init__(self, threadID, name)
-        self.sharedParams = sharedParams
-        self.sm = messaging.SubMaster(['liveTrafficData','trafficModelEvent'])
-        self.logger.debug("entered messaged_thread, ... %s" % str(self.sm))
-    def run(self):
-        self.logger.debug("Entered run method for thread :" + str(self.name))
-        last_not_none_signal = 'NONE'
-        last_not_none_signal_counter = 0
-        traffic_confidence = 0
-        traffic_status = 'NONE'
-        speedLimittraffic = 0
-        speedLimittraffic_prev = 0
-        speedLimittrafficAdvisoryvalid = False
-        speedLimittrafficAdvisory = 0
-        start = time.time()
-        while True:
-            if time.time() - start > 0.2:
-                print("Mapd MessagedThread lagging by: %s" % str(time.time() - start - 0.1))
-            if time.time() - start < 0.1:
-                time.sleep(0.01)
-                continue
-            else:
-                start = time.time()
-            self.logger.debug("starting new cycle in endless loop")
-            self.sm.update(0)
-            if self.sm.updated['trafficModelEvent']:
-              traffic_status = self.sm['trafficModelEvent'].status
-              traffic_confidence = round(self.sm['trafficModelEvent'].confidence * 100, 2)
-              if traffic_confidence >= 50 and (traffic_status == 'GREEN' or traffic_status == 'SLOW'):
-                last_not_none_signal = traffic_status
-                last_not_none_signal_counter = 0
-              elif traffic_confidence >= 50 and traffic_status == 'NONE' and last_not_none_signal != 'NONE':
-                if last_not_none_signal_counter < 25:
-                  last_not_none_signal_counter = last_not_none_signal_counter + 1
-                  #print("self.last_not_none_signal_counter")
-                  #print(self.last_not_none_signal_counter)
-                  #print("self.last_not_none_signal")
-                  #print(self.last_not_none_signal)
-                else:
-                  last_not_none_signal = 'NONE'
-            query_lock = self.sharedParams.get('query_lock', None)
-            query_lock.acquire()
-            speedLimittrafficvalid = self.sharedParams['speedLimittrafficvalid']
-            query_lock.release()
-            traffic = self.sm['liveTrafficData']
-            if traffic.speedLimitValid:
-                speedLimittraffic = traffic.speedLimit
-                if abs(speedLimittraffic_prev - speedLimittraffic) > 0.1:
-                    speedLimittrafficvalid = True
-                    speedLimittraffic_prev = speedLimittraffic
-            else:
-                speedLimittrafficvalid = False
-            if traffic.speedAdvisoryValid:
-                speedLimittrafficAdvisory = traffic.speedAdvisory
-                speedLimittrafficAdvisoryvalid = True
-            else:
-                speedLimittrafficAdvisoryvalid = False
-
-            query_lock.acquire()
-            self.sharedParams['traffic_status'] = traffic_status
-            self.sharedParams['traffic_confidence'] = traffic_confidence
-            self.sharedParams['last_not_none_signal'] = last_not_none_signal
-            self.sharedParams['speedLimittraffic'] = speedLimittraffic
-            self.sharedParams['speedLimittrafficvalid'] = speedLimittrafficvalid
-            self.sharedParams['speedLimittrafficAdvisory'] = speedLimittrafficAdvisory
-            self.sharedParams['speedLimittrafficAdvisoryvalid'] = speedLimittrafficAdvisoryvalid
-            query_lock.release()
 
 def main():
     params = Params()

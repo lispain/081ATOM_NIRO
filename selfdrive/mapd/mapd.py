@@ -457,9 +457,9 @@ def main():
                     'last_query_pos' : last_query_pos, 'cache_valid' : cache_valid, \
                     'osm_way_id' : osm_way_id}
 
-    qt = QueryThread(1, "QueryThread", sharedParams=sharedParams)
-    mt = MapsdThread(2, "MapsdThread", sharedParams=sharedParams)
-    mggps = MessagedGPSThread(3, "MessagedGPSThread", sharedParams=sharedParams)
+    qt = QueryThread(1, "/data/media/0/videos/QueryThread", sharedParams=sharedParams)
+    mt = MapsdThread(2, "/data/media/0/videos/MapsdThread", sharedParams=sharedParams)
+    mggps = MessagedGPSThread(3, "/data/media/0/videos/MessagedGPSThread", sharedParams=sharedParams)
 
     qt.start()
     mt.start()

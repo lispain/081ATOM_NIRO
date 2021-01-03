@@ -52,18 +52,12 @@ class CarInterface(CarInterfaceBase):
       ret.steerMaxBP = [0.]
       ret.steerMaxV = [1.0]
       ret.lateralTuning.pid.kf = 0.000005
-      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
+      
 
-      #ret.lateralTuning.init('lqr')
-      #ret.lateralTuning.lqr.scale = 1900.0
-      #ret.lateralTuning.lqr.ki = 0.02
-      #ret.lateralTuning.lqr.a = [0., 1., -0.22619643, 1.21822268]
-      #ret.lateralTuning.lqr.b = [-1.92006585e-04, 3.95603032e-05]
-      #ret.lateralTuning.lqr.c = [1., 0.]
-      #ret.lateralTuning.lqr.k = [-100., 450.]
-      #ret.lateralTuning.lqr.l = [0.22, 0.318]
-      #ret.lateralTuning.lqr.dcGain = 0.003
+      ret.lateralTuning.pid.kpBP, ret.lateralTuning.pid.kpV = [[0.], [0.25]]
+      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kiV = [[0.], [0.05]]
+      ret.lateralTuning.pid.kdBP, ret.lateralTuning.pid.kdV = [[0.],[1.5]]
+
     elif candidate == CAR.SANTA_FE:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 3982. * CV.LB_TO_KG + STD_CARGO_KG
@@ -219,8 +213,10 @@ class CarInterface(CarInterfaceBase):
 
     # atom  START
     if ATOMC.tun_type == 'pid':
-      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
+      ret.lateralTuning.pid.kpBP, ret.lateralTuning.pid.kpV = [[0.], [0.25]]
+      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kiV = [[0.], [0.05]]
+      ret.lateralTuning.pid.kdBP, ret.lateralTuning.pid.kdV = [[0.],[1.]]
+
     elif ATOMC.tun_type == 'indi':
       ret.lateralTuning.init('indi')
       ret.lateralTuning.indi.innerLoopGain = 3.0
@@ -247,10 +243,16 @@ class CarInterface(CarInterfaceBase):
     
     ret.atomTuning.sRKPH     = ATOMC.sR_KPH
     ret.atomTuning.sRBPV     = ATOMC.sR_BPV
+
+    # lqr
     ret.atomTuning.sRlqrkiV      = ATOMC.sR_lqr_kiV
     ret.atomTuning.sRlqrscaleV   = ATOMC.sR_lqr_scaleV
+
+    # pid
+    ret.atomTuning.sRpidKdV      = ATOMC.sR_pid_KdV
     ret.atomTuning.sRpidKiV      = ATOMC.sR_pid_KiV
     ret.atomTuning.sRpidKpV      = ATOMC.sR_pid_KpV
+
     ret.atomTuning.sRsteerRatioV = ATOMC.sR_steerRatioV
     ret.atomTuning.sRsteerActuatorDelayV = ATOMC.sR_ActuatorDelayV
   

@@ -31,20 +31,23 @@ class LatControlPID():
     self.sr_KPH = CP.atomTuning.sRKPH
     self.sr_BPV = CP.atomTuning.sRBPV
 
-    self.sR_pid_KdV  = CP.atomTuning.sRpidKdV
+    self.sR_pid_KpV  = CP.atomTuning.sRpidKpV
     self.sR_pid_KiV  = CP.atomTuning.sRpidKiV
-    self.sR_pid_KpV = CP.atomTuning.sRpidKpV
+    self.sR_pid_KdV  = CP.atomTuning.sRpidKdV
 
-    self.kdV = []
-    self.KiV = []
     self.KpV = []
+    self.KiV = []    
+    self.KdV = []
+
+
     self.MsV = []
 
     nPos = 0
     for angle in self.sr_BPV:  # angle
-      self.KdV.append( interp( sr_value, angle, self.sR_pid_KdV[nPos] ) )
-      self.KiV.append( interp( sr_value, angle, self.sR_pid_KiV[nPos] ) )
       self.KpV.append( interp( sr_value, angle, self.sR_pid_KpV[nPos] ) )
+      self.KiV.append( interp( sr_value, angle, self.sR_pid_KiV[nPos] ) )
+      self.KdV.append( interp( sr_value, angle, self.sR_pid_KdV[nPos] ) )
+
       nPos += 1
       if nPos > 10:
         break

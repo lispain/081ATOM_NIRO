@@ -167,36 +167,11 @@ class PathPlanner():
     return actuatorDelay
 
 
-  def  atom_steer( self, sr_value, sr_up, sr_dn ):
-    delta =  sr_value - self.steerRatio_last
-
-    sr_up = min( abs(delta), sr_up )
-    sr_dn = min( abs(delta), sr_dn )
-    steerRatio = self.steerRatio_last
-    if delta > 0:
-      steerRatio += sr_up
-    elif delta < 0:
-      steerRatio -= sr_dn
-
-
-    self.steerRatio_last = steerRatio
-    return steerRatio
   
 
   def update(self, sm, pm, CP, VM):
     atomTuning = CP.atomTuning
     lateralsRatom = CP.lateralsRatom
-    laneLineProbs = sm['modelV2'].laneLineProbs
-
-    leftLaneProb =  False  # laneLineProbs[0] < 0.01
-    rightLaneProb = False  # laneLineProbs[3] < 0.01
-
-    #if laneLineProbs[0] < 0.01:
-    #  leftLaneProb =  True
-
-    #if laneLineProbs[3] < 0.01:
-    #  rightLaneProb =  True
-
 
     cruiseState  = sm['carState'].cruiseState
     leftBlindspot = sm['carState'].leftBlindspot
@@ -211,6 +186,9 @@ class PathPlanner():
     angle_offset = sm['liveParameters'].angleOffset
 
     v_ego_kph = v_ego * CV.MS_TO_KPH
+
+    self.steerActuatorDelay = self.atom_actuatorDelay( v_ego_kph, self.angle_steers_des_mpc,  atomTuning )
+
     # Run MPC
     self.angle_steers_des_prev = self.angle_steers_des_mpc
 
@@ -298,7 +276,7 @@ class PathPlanner():
     self.LP.update_d_poly(v_ego, lateralsRatom.cameraOffset)
 
     # account for actuation delay
-    self.cur_state = calc_states_after_delay(self.cur_state, v_ego, angle_steers - angle_offset, curvature_factor, VM.sR, CP.steerActuatorDelay)
+    self.cur_state = calc_states_after_delay(self.cur_state, v_ego, angle_steers - angle_offset, curvature_factor, VM.sR, self.steerActuatorDelay)
 
     v_ego_mpc = max(v_ego, 5.0)  # avoid mpc roughness due to low speed
     self.libmpc.run_mpc(self.cur_state, self.mpc_solution,

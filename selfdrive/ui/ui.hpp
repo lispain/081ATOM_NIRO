@@ -165,6 +165,10 @@ typedef struct UIScene {
 
   float gpsAccuracyUblox;
   float altitudeUblox;
+  float bearingUblox;
+  float latitudeUblox;
+  float longitudeUblox;
+
   float model_sum;
   float v_cruise;
   float v_ego;

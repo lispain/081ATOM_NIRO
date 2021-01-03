@@ -292,7 +292,10 @@ void update_sockets(UIState *s) {
 
     auto data2 = sm["gpsLocationExternal"].getGpsLocationExternal();
     scene.gpsAccuracyUblox = data2.getAccuracy();
-    scene.altitudeUblox = data2.getAltitude();      
+    scene.altitudeUblox = data2.getAltitude();
+    scene.bearingUblox = data2.getBearing();    
+    scene.latitudeUblox = data2.getLatitude();
+    scene.longitudeUblox = data2.getLongitude();
 
     if (scene.gpsAccuracyUblox > 100)
       scene.gpsAccuracyUblox = 99.99;

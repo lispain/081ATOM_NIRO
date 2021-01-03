@@ -484,10 +484,16 @@ static void ui_draw_debug(UIState *s)
   
 
   nvgTextAlign(s->vg, NVG_ALIGN_LEFT | NVG_ALIGN_BASELINE);
+  if (scene.gpsAccuracyUblox != 0.00) 
+  {
+    nvgFontSize(s->vg, 34);
+    ui_print(s, 28, 28, "%.5f／%.5f/%.5f", scene.latitudeUblox, scene.longitudeUblox, scene.bearingUblox);
+  }
+
   nvgFontSize(s->vg, 36*1.5*fFontSize);
 
 
-  ui_print( s, ui_viz_rx+10, 50, "S:%d",  s->awake_timeout );
+  //ui_print( s, ui_viz_rx+10, 50, "S:%d",  s->awake_timeout );
 
   x_pos = ui_viz_rx + 300;
   y_pos = 100+250; 

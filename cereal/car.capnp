@@ -437,9 +437,10 @@ struct CarParams {
     sRsteerRatioV @7 :List(List(Float32));
     sRlqrkiV @8 :List(List(Float32));
     sRlqrscaleV @9 :List(List(Float32));
-    sRpidKiV @10 :List(List(Float32));
-    sRpidKpV @11 :List(List(Float32));
-    sRsteerActuatorDelayV @12 :List(List(Float32));
+    sRpidKdV @10 :List(List(Float32));
+    sRpidKiV @11 :List(List(Float32));
+    sRpidKpV @12 :List(List(Float32));
+    sRsteerActuatorDelayV @13 :List(List(Float32));
   }
 
 
@@ -461,7 +462,9 @@ struct CarParams {
     kpV @1 :List(Float32);
     kiBP @2 :List(Float32);
     kiV @3 :List(Float32);
-    kf @4 :Float32;
+    kdBP @4 :List(Float32) = [0.];
+    kdV @5 :List(Float32) = [0.];    
+    kf @6 :Float32;
   }
 
   struct LongitudinalPIDTuning {

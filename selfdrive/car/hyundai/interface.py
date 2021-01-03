@@ -249,9 +249,9 @@ class CarInterface(CarInterfaceBase):
     ret.atomTuning.sRlqrscaleV   = ATOMC.sR_lqr_scaleV
 
     # pid
-    ret.atomTuning.sRpidKdV      = ATOMC.sR_pid_KdV
-    ret.atomTuning.sRpidKiV      = ATOMC.sR_pid_KiV
     ret.atomTuning.sRpidKpV      = ATOMC.sR_pid_KpV
+    ret.atomTuning.sRpidKiV      = ATOMC.sR_pid_KiV
+    ret.atomTuning.sRpidKdV      = ATOMC.sR_pid_KdV
 
     ret.atomTuning.sRsteerRatioV = ATOMC.sR_steerRatioV
     ret.atomTuning.sRsteerActuatorDelayV = ATOMC.sR_ActuatorDelayV
@@ -307,10 +307,14 @@ class CarInterface(CarInterfaceBase):
 
     CP.atomTuning.sRKPH     = ATOMC.sR_KPH
     CP.atomTuning.sRBPV     = ATOMC.sR_BPV
+    
     CP.atomTuning.sRlqrkiV      = ATOMC.sR_lqr_kiV
     CP.atomTuning.sRlqrscaleV   = ATOMC.sR_lqr_scaleV
-    CP.atomTuning.sRpidKiV      = ATOMC.sR_pid_KiV
+
     CP.atomTuning.sRpidKpV      = ATOMC.sR_pid_KpV
+    CP.atomTuning.sRpidKiV      = ATOMC.sR_pid_KiV
+    CP.atomTuning.sRpidKdV      = ATOMC.sR_pid_KdV
+
     CP.atomTuning.sRsteerRatioV = ATOMC.sR_steerRatioV
     CP.atomTuning.sRsteerActuatorDelayV = ATOMC.sR_ActuatorDelayV
     

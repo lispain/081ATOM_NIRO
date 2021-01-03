@@ -487,7 +487,7 @@ static void ui_draw_debug(UIState *s)
   if (scene.gpsAccuracyUblox != 0.00) 
   {
     nvgFontSize(s->vg, 34);
-    ui_print(s, 28, 28, "%.5f／%.5f/%.5f", scene.latitudeUblox, scene.longitudeUblox, scene.bearingUblox);
+    ui_print(s, 28, 28, "%.5f/%.5f/%.5f", scene.latitudeUblox, scene.longitudeUblox, scene.bearingUblox);
   }
 
   nvgFontSize(s->vg, 36*1.5*fFontSize);
@@ -506,15 +506,18 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, x_pos, y_pos+200, "prob:%.2f, %.2f, %.2f, %.2f", scene.lane_line_probs[0], scene.lane_line_probs[1], scene.lane_line_probs[2], scene.lane_line_probs[3] );
   //ui_print( s, x_pos, y_pos+300, "edge:%.2f, %.2f", scene.road_edge_stds[0], scene.road_edge_stds[1] );
 
+
   ui_print( s, x_pos, y_pos+250, "lW:%.2f  cpuPerc:%d", scene.pathPlan.laneWidth, scene.kegman.cpuPerc );
-  ui_print( s, x_pos, y_pos+300, "Poly:%.2f, %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly );
+
+  float  dPoly = scene.pathPlan.lPoly + scene.pathPlan.rPoly;
+  ui_print( s, x_pos, y_pos+300, "Poly:%.2f, %.2f = %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly, dPoly );
  // ui_print( s, x_pos, y_pos+350, "map:%d,cam:%d", scene.live.map_valid, scene.live.speedlimitahead_valid  );
 
   bool curvatureValid = scene.live.MapData.getCurvatureValid();
-  int   wayId = scene.live.MapData.getWayId();
+  //int   wayId = scene.live.MapData.getWayId();
   float curvature = scene.live.MapData.getCurvature();
   float   distToTurn = scene.live.MapData.getDistToTurn();
-  ui_print( s, x_pos, y_pos+350, "way:%d,ID:%d,%.5f,%.5f", curvatureValid, wayId, curvature, distToTurn  );
+  ui_print( s, x_pos, y_pos+350, "way:%d, %.5f,%.5f", curvatureValid,  curvature, distToTurn  );
 
   ui_print( s, 0, 1020, "%s", scene.alert.text1 );
   ui_print( s, 0, 1078, "%s", scene.alert.text2 );

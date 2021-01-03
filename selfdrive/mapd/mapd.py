@@ -321,9 +321,10 @@ class MapsdThread(LoggerThread):
                             radii = np.nan_to_num(circles[:, 2])
                             radii[abs(radii) < 15.] = 10000
 
-                            if cur_way.way.tags['highway'] == 'trunk_link'  or cur_way.way.tags['highway'] == 'motorway_link':
+                            tag_highway = cur_way.way.tags['highway']
+                            if tag_highway == 'trunk_link'  or tag_highway == 'motorway_link':
                                 radii = radii*1.6 # https://media.springernature.com/lw785/springer-static/image/chp%3A10.1007%2F978-3-658-01689-0_21/MediaObjects/298553_35_De_21_Fig65_HTML.gif
-                            elif cur_way.way.tags['highway'] == 'motorway':
+                            elif tag_highway == 'motorway':
                                 radii = radii*2.8
 
                             curvature = 1. / radii

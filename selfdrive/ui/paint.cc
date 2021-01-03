@@ -510,15 +510,25 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, x_pos, y_pos+300, "Poly:%.2f, %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly );
  // ui_print( s, x_pos, y_pos+350, "map:%d,cam:%d", scene.live.map_valid, scene.live.speedlimitahead_valid  );
 
+  bool curvatureValid = scene.live.MapData.getCurvatureValid();
+  int   wayId = scene.live.MapData.getWayId();
+  float curvature = scene.live.MapData.getCurvature();
+  float   distToTurn = scene.live.MapData.getDistToTurn();
+  ui_print( s, x_pos, y_pos+350, "way:%d,ID:%d,%.5f,%.5f", curvatureValid, wayId, curvature, distToTurn  );
+
   ui_print( s, 0, 1020, "%s", scene.alert.text1 );
   ui_print( s, 0, 1078, "%s", scene.alert.text2 );
 
 
-  if( scene.live.speedlimitahead_valid  &&  (scene.nTimer & 0x01) )
+  if( scene.live.speedlimitahead_valid  )
   {
     nvgFontSize(s->vg, 80);
     ui_print( s, x_pos, y_pos+400, "SPD:%.1f, DIST:%.1f", scene.live.speedlimitahead*3.6, scene.live.speedlimitaheaddistance  );
   }  
+
+
+
+
 
   NVGcolor nColor = COLOR_WHITE;
   x_pos = viz_speed_x + 300;

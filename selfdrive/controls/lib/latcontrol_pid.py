@@ -57,7 +57,7 @@ class LatControlPID():
 
     #rt_Ki = interp( v_ego_kph, self.sr_KPH, self.Ki )
     #rt_Kp  = interp( v_ego_kph, self.sr_KPH, self.Kp )
-    return self.MsV, self.KiV, self.KpV, self.kdV
+    return self.MsV, self.KiV, self.KpV, self.KdV
 
   def linear2_tune( self, CS, CP ):  # angle(조향각에 의한 변화)
     v_ego_kph = CS.vEgo * CV.MS_TO_KPH

@@ -206,6 +206,49 @@ static void update_track_data(UIState *s, const cereal::ModelDataV2::XYZTData::R
   pvd->cnt = v - pvd->v;
 }
 
+
+static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd) 
+{
+ if (pvd->cnt == 0) return;
+
+  nvgBeginPath(s->vg);
+  nvgMoveTo(s->vg, pvd->v[0].x, pvd->v[0].y);
+  for (int i=1; i<pvd->cnt; i++) {
+    nvgLineTo(s->vg, pvd->v[i].x, pvd->v[i].y);
+  }
+  nvgClosePath(s->vg);
+
+  NVGpaint track_bg;
+  int red_lvl = 0;
+  int green_lvl = 0;
+  if (is_mpc) {
+    // Draw colored MPC track Kegman's
+    if (s->scene.kegman.steerOverride) {
+      track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4,
+        nvgRGBA(0, 191, 255, 255), nvgRGBA(0, 95, 128, 50));
+    } else {
+      int torque_scale = (int)fabs(510*(float)s->scene.kegman.output_scale);
+      red_lvl = fmin(255, torque_scale);
+      green_lvl = fmin(255, 510-torque_scale);
+
+      NVGcolor color1 = nvgRGBA(          red_lvl,            green_lvl,  0, 255); 
+      NVGcolor color2 = nvgRGBA((int)(0.5*red_lvl), (int)(0.5*green_lvl), 0, 50);
+      track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4,
+        color1, color2 );        
+    }
+   // LOGW("ui_draw_track mps=%d  cnt=%d  ov=%d  %d,%d", is_mpc, pvd->cnt, s->scene.kegman.steerOverride, red_lvl, green_lvl);
+  } else {
+    // Draw white vision track
+    track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4,
+       COLOR_WHITE, COLOR_WHITE_ALPHA(0));
+  }
+
+
+  nvgFillPaint(s->vg, track_bg);
+  nvgFill(s->vg);
+}
+
+
 static void ui_draw_track(UIState *s, track_vertices_data *pvd) 
 {
   /*
@@ -213,6 +256,28 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
                                         COLOR_WHITE, COLOR_WHITE_ALPHA(0));
   ui_draw_line(s, &pvd->v[0], pvd->cnt, nullptr, &track_bg);
   */
+
+  track_vertices_data  pvd;
+
+
+  
+  float  roadX[] = [-210.03477, -209.45592, -206.03552, -196.41882, -183.08218, -165.16653, -142.21036, -118.08344, -106.71581, -95.342873, -77.40567, -67.594193, -48.470016, -34.093269, -4.7937703, 9.1955853, 29.486221, 60.164474, 147.88513, NULL];
+  float  roadY[] = [-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, NULL];
+
+  int  nCnt = 0;
+  for( int  i = 0; i<20; i++ )
+  {
+      if( roadX[i] == NULL  ) break;
+
+      pvd.v[0].x = roadX[i];
+      pvd.v[0].y = roadY[i];
+
+      nCnt++;
+  }
+
+  pvd->cnt = nCnt;
+
+  ui_draw_track_map( s, 0, &pvd );
 
  
   // kegman

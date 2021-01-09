@@ -300,8 +300,8 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
 /*
   int wayID = MapData.getWayID();
   if( wayID == 0 ) return;
-  int  nCnt = 0;
-  for( int  i = 0; i<20; i++ )
+  int  nCnt =  len(MapData.getRoadX());
+  for( int  i = 0; i<nCnt; i++ )
   {
       if( MapData.getRoadY()[i] == 0  ) break;
 
@@ -310,7 +310,7 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
 
       nCnt++;
   }
-  road.cnt = nCnt;
+ // road.cnt = nCnt;
 */
   ui_draw_track_map( s, 0, &road );
 

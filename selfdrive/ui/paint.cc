@@ -291,15 +291,11 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
   ui_print( s, x_pos, y_pos,   "cnt = %d", pvd->cnt );
   // kegman
   if (pvd->cnt == 0) return;
-  y_pos = 50;
-  x_pos = 500;
 
   nvgBeginPath(s->vg);
   nvgMoveTo(s->vg, pvd->v[0].x, pvd->v[0].y);
   for (int i=1; i<pvd->cnt; i++) {
     nvgLineTo(s->vg, pvd->v[i].x, pvd->v[i].y);
-
-    ui_print( s, x_pos, y_pos+10*i,   "%d = %.1f,%.1f",i,  pvd->v[i].x, pvd->v[i].y ); 
   }
   nvgClosePath(s->vg);
 

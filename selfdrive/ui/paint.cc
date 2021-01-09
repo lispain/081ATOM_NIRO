@@ -269,11 +269,6 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
 
   track_vertices_data  road;
   
-  cereal::LiveMapData::Reader MapData = s->scene.live.MapData;
-
-
-  
-
 
   
 

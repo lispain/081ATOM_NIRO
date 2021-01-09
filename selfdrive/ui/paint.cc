@@ -247,8 +247,7 @@ static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd)
   } 
   else 
   {
-    track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4,
-       COLOR_WHITE, COLOR_WHITE_ALPHA(0));
+    track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4, COLOR_RED, nvgRGBA(0, 95, 128, 50) );
   }
 
 
@@ -277,8 +276,8 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
   {
       if( roadX[i] == 0  ) break;
 
-      road.v[i].x = roadX[i];
-      road.v[i].y = roadY[i];
+      road.v[i].x = roadX[i] + 800;
+      road.v[i].y = roadY[i] + 500;
 
       nCnt++;
   }
@@ -292,13 +291,15 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
   ui_print( s, x_pos, y_pos,   "cnt = %d", pvd->cnt );
   // kegman
   if (pvd->cnt == 0) return;
+  y_pos = 50;
+  x_pos = 500;
 
   nvgBeginPath(s->vg);
   nvgMoveTo(s->vg, pvd->v[0].x, pvd->v[0].y);
   for (int i=1; i<pvd->cnt; i++) {
     nvgLineTo(s->vg, pvd->v[i].x, pvd->v[i].y);
 
-    ui_print( s, x_pos, y_pos+50*i,   "x = %.1f,%.1f", pvd->v[i].x, pvd->v[i].y ); 
+    ui_print( s, x_pos, y_pos+10*i,   "%d = %.1f,%.1f",i,  pvd->v[i].x, pvd->v[i].y ); 
   }
   nvgClosePath(s->vg);
 

@@ -269,8 +269,8 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
   {
       if( roadX[i] == NULL  ) break;
 
-      pvd.v[0].x = roadX[i];
-      pvd.v[0].y = roadY[i];
+      pvd.v[i].x = roadX[i];
+      pvd.v[i].y = roadY[i];
 
       nCnt++;
   }

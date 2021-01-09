@@ -221,6 +221,8 @@ static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd)
 
 
 
+
+
   int  vwp_w = s->fb_w;
   int  vwp_h = s->fb_h;
 
@@ -253,6 +255,7 @@ static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd)
 
   nvgFillPaint(s->vg, track_bg);
   nvgFill(s->vg);
+
 }
 
 
@@ -265,30 +268,53 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
   */
 
   track_vertices_data  road;
+  
+  cereal::LiveMapData::Reader MapData = s->scene.live.MapData;
 
 
   
+
+
+  
+
   float  roadX[] = {-210.03477, -209.45592, -206.03552, -196.41882, -183.08218, -165.16653, -142.21036, -118.08344, -106.71581, -95.342873, -77.40567, -67.594193, -48.470016, -34.093269, -4.7937703, 9.1955853, 29.486221, 60.164474, 147.88513, 0};
   float  roadY[] = {-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, 0};
 
-  int  nCnt = 1;
+  int  nCnt = 0;
+  int  x_pos = 0;
+  int  y_pos = 0;
   for( int  i = 0; i<20; i++ )
   {
       if( roadX[i] == 0  ) break;
 
-      road.v[i].x = roadX[i] + 800;
+      road.v[i].x = roadX[i] + 500;
       road.v[i].y = roadY[i] + 500;
+
+      x_pos = road.v[i].x;
+      y_pos = road.v[i].y;
+      ui_print( s, x_pos, y_pos,   "%d", i );
+      nCnt++;
+  }
+  road.cnt = nCnt;
+
+/*
+  int wayID = MapData.getWayID();
+  if( wayID == 0 ) return;
+  int  nCnt = 0;
+  for( int  i = 0; i<20; i++ )
+  {
+      if( MapData.getRoadY()[i] == 0  ) break;
+
+      road.v[i].x = 500 + MapData.getRoadX()[i];// roadX[i] + 500;
+      road.v[i].y = 500 + MapData.getRoadY()[i];// roadY[i] + 500;
 
       nCnt++;
   }
-
   road.cnt = nCnt;
+*/
   ui_draw_track_map( s, 0, &road );
 
  
-  int x_pos = 200;
-  int y_pos = 0;
-  ui_print( s, x_pos, y_pos,   "cnt = %d", pvd->cnt );
   // kegman
   if (pvd->cnt == 0) return;
 

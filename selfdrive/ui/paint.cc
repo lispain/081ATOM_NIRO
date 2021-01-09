@@ -219,7 +219,6 @@ static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd)
   {
     nvgLineTo(s->vg, pvd->v[i].x, pvd->v[i].y);
   }
-  nvgMoveTo(s->vg, pvd->v[nCnt].x, pvd->v[nCnt].y);
   nvgClosePath(s->vg);
 
 
@@ -670,7 +669,8 @@ static void ui_draw_vision_speed(UIState *s) {
   
 
 
-  track_vertices_data  road;
+  //track_vertices_data  road;
+  vertex_data road[TRACK_POINTS_MAX_CNT];  
   float  roadX[] = {-210.03477, -209.45592, -206.03552, -196.41882, -183.08218, -165.16653, -142.21036, -118.08344, -106.71581, -95.342873, -77.40567, -67.594193, -48.470016, -34.093269, -4.7937703, 9.1955853, 29.486221, 60.164474, 147.88513, 0};
   float  roadY[] = {-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, 0};
 
@@ -682,11 +682,11 @@ static void ui_draw_vision_speed(UIState *s) {
   {
       if( roadX[i] == 0  ) break;
 
-      road.v[i].x = roadX[i] + x_pos;
-      road.v[i].y = roadY[i] + y_pos;
+      road[i].x = roadX[i] + x_pos;
+      road[i].y = roadY[i] + y_pos;
       nCnt++;
   }
-  road.cnt = nCnt;
+
 
 /*
   int wayID = MapData.getWayID();
@@ -703,7 +703,13 @@ static void ui_draw_vision_speed(UIState *s) {
   }
  // road.cnt = nCnt;
 */
-  ui_draw_track_map( s, 0, &road );
+   // ui_draw_track_map( s, 0, &road );
+
+ // vertex_data v;
+
+
+  NVGcolor color = COLOR_RED;// nvgRGBAf(1.0, 0.0, 0.0, 1.0);
+  ui_draw_line( s, road, nCnt, &color, nullptr );
 }
 
 static void ui_draw_vision_event(UIState *s) 

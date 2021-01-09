@@ -211,12 +211,15 @@ static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd)
 {
  if (pvd->cnt == 0) return;
 
+ int  nCnt = pvd->cnt;
+
   nvgBeginPath(s->vg);
   nvgMoveTo(s->vg, pvd->v[0].x, pvd->v[0].y);
   for (int i=1; i<pvd->cnt; i++) 
   {
     nvgLineTo(s->vg, pvd->v[i].x, pvd->v[i].y);
   }
+  nvgMoveTo(s->vg, pvd->v[nCnt].x, pvd->v[nCnt].y);
   nvgClosePath(s->vg);
 
 

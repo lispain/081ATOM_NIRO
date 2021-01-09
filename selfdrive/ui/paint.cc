@@ -276,8 +276,8 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
   float  roadY[] = {-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, 0};
 
   int  nCnt = 0;
-  int  x_pos = 0;
-  int  y_pos = 0;
+  int  x_pos = 500;
+  int  y_pos = 100;
   for( int  i = 0; i<20; i++ )
   {
       if( roadX[i] == 0  ) break;
@@ -285,9 +285,7 @@ static void ui_draw_track(UIState *s, track_vertices_data *pvd)
       road.v[i].x = roadX[i] + 500;
       road.v[i].y = roadY[i] + 500;
 
-      x_pos = road.v[i].x;
-      y_pos = road.v[i].y;
-      ui_print( s, x_pos, y_pos,   "%d", i );
+      ui_print( s, x_pos, y_pos+50*i,   "%d = %.1f,%.1f", i, road.v[i].x, road.v[i].y );
       nCnt++;
   }
   road.cnt = nCnt;

@@ -207,59 +207,6 @@ static void update_track_data(UIState *s, const cereal::ModelDataV2::XYZTData::R
 }
 
 
-static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd) 
-{
- if (pvd->cnt == 0) return;
-
- int  nCnt = pvd->cnt;
-
-  nvgBeginPath(s->vg);
-  nvgMoveTo(s->vg, pvd->v[0].x, pvd->v[0].y);
-  for (int i=1; i<pvd->cnt; i++) 
-  {
-    nvgLineTo(s->vg, pvd->v[i].x, pvd->v[i].y);
-  }
-  nvgClosePath(s->vg);
-
-
-
-
-
-  int  vwp_w = s->fb_w;
-  int  vwp_h = s->fb_h;
-
-
-  NVGpaint track_bg;
-  int red_lvl = 0;
-  int green_lvl = 0;
-  if (is_mpc) 
-  {
-    if (s->scene.kegman.steerOverride) 
-    {
-      track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4,
-        nvgRGBA(0, 191, 255, 255), nvgRGBA(0, 95, 128, 50));
-    } else {
-      int torque_scale = (int)fabs(510*(float)s->scene.kegman.output_scale);
-      red_lvl = fmin(255, torque_scale);
-      green_lvl = fmin(255, 510-torque_scale);
-
-      NVGcolor color1 = nvgRGBA(          red_lvl,            green_lvl,  0, 255); 
-      NVGcolor color2 = nvgRGBA((int)(0.5*red_lvl), (int)(0.5*green_lvl), 0, 50);
-      track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4,
-        color1, color2 );        
-    }
-  } 
-  else 
-  {
-    track_bg = nvgLinearGradient(s->vg, vwp_w, vwp_h, vwp_w, vwp_h*.4, COLOR_RED, COLOR_RED );
-  }
-
-
-  nvgFillPaint(s->vg, track_bg);
-  nvgFill(s->vg);
-
-}
-
 
 static void ui_draw_track(UIState *s, track_vertices_data *pvd) 
 {
@@ -687,7 +634,6 @@ static void ui_draw_vision_speed(UIState *s) {
       nCnt++;
   }
 
-
 /*
   int wayID = MapData.getWayID();
   if( wayID == 0 ) return;
@@ -703,9 +649,9 @@ static void ui_draw_vision_speed(UIState *s) {
   }
  // road.cnt = nCnt;
 */
-   // ui_draw_track_map( s, 0, &road );
 
- // vertex_data v;
+// ui_draw_track_map( s, 0, &road );
+// vertex_data v;
 
 
   NVGcolor color = COLOR_RED;// nvgRGBAf(1.0, 0.0, 0.0, 1.0);

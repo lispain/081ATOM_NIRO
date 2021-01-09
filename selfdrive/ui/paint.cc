@@ -261,53 +261,7 @@ static void ui_draw_track_map(UIState *s, bool is_mpc, track_vertices_data *pvd)
 
 static void ui_draw_track(UIState *s, track_vertices_data *pvd) 
 {
-  /*
-  NVGpaint track_bg = nvgLinearGradient(s->vg, s->fb_w, s->fb_h, s->fb_w, s->fb_h * .4,
-                                        COLOR_WHITE, COLOR_WHITE_ALPHA(0));
-  ui_draw_line(s, &pvd->v[0], pvd->cnt, nullptr, &track_bg);
-  */
-
-  track_vertices_data  road;
-  
-
-  
-
-  float  roadX[] = {-210.03477, -209.45592, -206.03552, -196.41882, -183.08218, -165.16653, -142.21036, -118.08344, -106.71581, -95.342873, -77.40567, -67.594193, -48.470016, -34.093269, -4.7937703, 9.1955853, 29.486221, 60.164474, 147.88513, 0};
-  float  roadY[] = {-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, 0};
-
-  int  nCnt = 0;
-  int  x_pos = 500;
-  int  y_pos = 100;
-  for( int  i = 0; i<20; i++ )
-  {
-      if( roadX[i] == 0  ) break;
-
-      road.v[i].x = roadX[i] + 500;
-      road.v[i].y = roadY[i] + 500;
-
-      ui_print( s, x_pos, y_pos+50*i,   "%d = %.1f,%.1f", i, road.v[i].x, road.v[i].y );
-      nCnt++;
-  }
-  road.cnt = nCnt;
-
-/*
-  int wayID = MapData.getWayID();
-  if( wayID == 0 ) return;
-  int  nCnt =  len(MapData.getRoadX());
-  for( int  i = 0; i<nCnt; i++ )
-  {
-      if( MapData.getRoadY()[i] == 0  ) break;
-
-      road.v[i].x = 500 + MapData.getRoadX()[i];// roadX[i] + 500;
-      road.v[i].y = 500 + MapData.getRoadY()[i];// roadY[i] + 500;
-
-      nCnt++;
-  }
- // road.cnt = nCnt;
-*/
-  ui_draw_track_map( s, 0, &road );
-
- 
+   
   // kegman
   if (pvd->cnt == 0) return;
 
@@ -708,6 +662,46 @@ static void ui_draw_vision_speed(UIState *s) {
   ui_draw_text(s->vg, viz_rect.centerX(), 320, s->is_metric?"km/h":"mph", 36*2.5, COLOR_WHITE_ALPHA(200), s->font_sans_regular);
 
   ui_draw_debug( s ); 
+
+
+  
+
+  
+  track_vertices_data  road;
+  float  roadX[] = {-210.03477, -209.45592, -206.03552, -196.41882, -183.08218, -165.16653, -142.21036, -118.08344, -106.71581, -95.342873, -77.40567, -67.594193, -48.470016, -34.093269, -4.7937703, 9.1955853, 29.486221, 60.164474, 147.88513, 0};
+  float  roadY[] = {-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, 0};
+
+  int  nCnt = 0;
+  int  x_pos = 500;
+  int  y_pos = 100;
+  for( int  i = 0; i<20; i++ )
+  {
+      if( roadX[i] == 0  ) break;
+
+      road.v[i].x = roadX[i] + 500;
+      road.v[i].y = roadY[i] + 500;
+
+      ui_print( s, x_pos, y_pos+50*i,   "%d = %.1f,%.1f", i, road.v[i].x, road.v[i].y );
+      nCnt++;
+  }
+  road.cnt = nCnt;
+
+/*
+  int wayID = MapData.getWayID();
+  if( wayID == 0 ) return;
+  int  nCnt =  len(MapData.getRoadX());
+  for( int  i = 0; i<nCnt; i++ )
+  {
+      if( MapData.getRoadY()[i] == 0  ) break;
+
+      road.v[i].x = 500 + MapData.getRoadX()[i];// roadX[i] + 500;
+      road.v[i].y = 500 + MapData.getRoadY()[i];// roadY[i] + 500;
+
+      nCnt++;
+  }
+ // road.cnt = nCnt;
+*/
+  ui_draw_track_map( s, 0, &road );
 }
 
 static void ui_draw_vision_event(UIState *s) 

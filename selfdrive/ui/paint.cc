@@ -616,46 +616,52 @@ static void ui_draw_vision_speed(UIState *s) {
   
 
 
-  //track_vertices_data  road;
-  vertex_data road[TRACK_POINTS_MAX_CNT];  
+
   float  roadX[] = {-210.03477, -209.45592, -206.03552, -196.41882, -183.08218, -165.16653, -142.21036, -118.08344, -106.71581, -95.342873, -77.40567, -67.594193, -48.470016, -34.093269, -4.7937703, 9.1955853, 29.486221, 60.164474, 147.88513, 0};
   float  roadY[] = {-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, 0};
 
-  int  nCnt = 0;
+  int  nMax =  sizeof(roadX) / sizeof( roadX[0] );
   int  x_pos = 500 - roadX[0];
   int  y_pos = 500 - roadY[0];
+  int  nCnt = 0;
 
-  for( int  i = 0; i<20; i++ )
+  for( int  i = 0; i<nMax; i++ )
   {
-      if( roadX[i] == 0  ) break;
-
-      road[i].x = roadX[i] + x_pos;
-      road[i].y = roadY[i] + y_pos;
+      scene.live.road[nCnt].x = roadX[i] + x_pos;
+      scene.live.road[nCnt].y = roadY[i] + y_pos;
       nCnt++;
   }
+
+  int  nRoadCnt = nCnt;
+  for( int  i = 0; i<nMax; i++ )
+  {
+      nRoadCnt--;
+      scene.live.road[nCnt].x = roadX[nRoadCnt] + 10 + x_pos;
+      scene.live.road[nCnt].y = roadY[nRoadCnt] + y_pos;
+      nCnt++;
+  }  
+
+  scene.live.nCnt = nCnt;
 
 /*
   int wayID = MapData.getWayID();
   if( wayID == 0 ) return;
-  int  nCnt =  len(MapData.getRoadX());
+  int  nCnt =  sizeof(MapData.getRoadX()) / sizeof( MapData.getRoadX()[0]);
+  int  x_pos = 500 - MapData.getRoadX()[0];
+  int  y_pos = 500 - MapData.getRoadY()[0];
   for( int  i = 0; i<nCnt; i++ )
   {
       if( MapData.getRoadY()[i] == 0  ) break;
 
-      road.v[i].x = 500 + MapData.getRoadX()[i];// roadX[i] + 500;
-      road.v[i].y = 500 + MapData.getRoadY()[i];// roadY[i] + 500;
-
-      nCnt++;
+      road[i].x = x_pos + MapData.getRoadX()[i];
+      road[i].y = y_pos + MapData.getRoadY()[i];
   }
- // road.cnt = nCnt;
 */
 
-// ui_draw_track_map( s, 0, &road );
-// vertex_data v;
 
 
   NVGcolor color = COLOR_RED;// nvgRGBAf(1.0, 0.0, 0.0, 1.0);
-  ui_draw_line( s, road, nCnt, &color, nullptr );
+  ui_draw_line( s, scene.live.road, scene.live.nCnt, &color, nullptr );
 }
 
 static void ui_draw_vision_event(UIState *s) 

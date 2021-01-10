@@ -237,6 +237,9 @@ typedef struct UIScene {
     float speedlimit;
     float speedlimitahead;
     float speedlimitaheaddistance;
+    int   wayID;
+    int   nCnt;
+    vertex_data road[TRACK_POINTS_MAX_CNT];
   } live;
 
   struct _PathPlan
@@ -347,6 +350,10 @@ typedef struct UIState {
   line_vertices_data road_edge_vertices[2];
 
   Rect video_rect;
+
+
+
+
 } UIState;
 
 void ui_init(UIState *s);

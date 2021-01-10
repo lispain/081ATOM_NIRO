@@ -628,7 +628,7 @@ static void ui_draw_vision_speed(UIState *s)
   int  nRoadCnt = nMax-1;
   if( nRoadCnt < 0 ) nRoadCnt = 0;
   int  x_pos = 1200 - roadX[nRoadCnt];
-  int  y_pos = 300 - roadY[nRoadCnt];
+  int  y_pos = 900 - roadY[nRoadCnt];
   int  nCnt = 0;
 
 

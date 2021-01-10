@@ -290,14 +290,25 @@ void update_sockets(UIState *s) {
       auto  roadX = scene.live.MapData.getRoadX();
       auto  roadY = scene.live.MapData.getRoadY();
 
-      int  nCnt =  sizeof(roadY) / sizeof( roadY[0] );
-      int  x_pos = 500 - roadX[0];
-      int  y_pos = 500 - roadY[0];
-      for( int  i = 0; i<nCnt; i++ )
+      int  nMax =  sizeof(roadY) / sizeof( roadY[0] );
+      int  x_pos = 1200 - roadX[0];
+      int  y_pos = 300 - roadY[0];
+      int  nCnt = 0;
+      for( int  i = 0; i<nMax; i++ )
       {
-        scene.live.road.v[i].x = x_pos + roadX[i];
-        scene.live.road.v[i].y = y_pos + roadY[i];
+        scene.live.road.v[nCnt].x = x_pos + roadX[i];
+        scene.live.road.v[nCnt].y = y_pos + roadY[i];
+        nCnt++;
       }
+
+      int  nRoadCnt = nCnt;
+      for( int  i = 0; i<nMax; i++ )
+      {
+          nRoadCnt--;
+          scene.live.road.v[nCnt].x = roadX[nRoadCnt] + 10 + x_pos;
+          scene.live.road.v[nCnt].y = roadY[nRoadCnt] + y_pos;
+          nCnt++;
+      }        
 
       scene.live.road.cnt = nCnt;
     }

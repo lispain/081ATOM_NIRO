@@ -295,11 +295,11 @@ void update_sockets(UIState *s) {
       int  y_pos = 500 - roadY[0];
       for( int  i = 0; i<nCnt; i++ )
       {
-        scene.live.road[i].x = x_pos + roadX[i];
-        scene.live.road[i].y = y_pos + roadY[i];
+        scene.live.road.v[i].x = x_pos + roadX[i];
+        scene.live.road.v[i].y = y_pos + roadY[i];
       }
 
-      scene.live.nCnt = nCnt;
+      scene.live.road.cnt = nCnt;
     }
 
   }  

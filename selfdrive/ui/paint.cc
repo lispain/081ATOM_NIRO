@@ -627,8 +627,8 @@ static void ui_draw_vision_speed(UIState *s) {
 
   for( int  i = 0; i<nMax; i++ )
   {
-      scene.live.road[nCnt].x = roadX[i] + x_pos;
-      scene.live.road[nCnt].y = roadY[i] + y_pos;
+      scene.live.road.v[nCnt].x = roadX[i] + x_pos;
+      scene.live.road.v[nCnt].y = roadY[i] + y_pos;
       nCnt++;
   }
 
@@ -636,32 +636,16 @@ static void ui_draw_vision_speed(UIState *s) {
   for( int  i = 0; i<nMax; i++ )
   {
       nRoadCnt--;
-      scene.live.road[nCnt].x = roadX[nRoadCnt] + 10 + x_pos;
-      scene.live.road[nCnt].y = roadY[nRoadCnt] + y_pos;
+      scene.live.road.v[nCnt].x = roadX[nRoadCnt] + 10 + x_pos;
+      scene.live.road.v[nCnt].y = roadY[nRoadCnt] + y_pos;
       nCnt++;
   }  
 
-  scene.live.nCnt = nCnt;
-
-/*
-  int wayID = MapData.getWayID();
-  if( wayID == 0 ) return;
-  int  nCnt =  sizeof(MapData.getRoadX()) / sizeof( MapData.getRoadX()[0]);
-  int  x_pos = 500 - MapData.getRoadX()[0];
-  int  y_pos = 500 - MapData.getRoadY()[0];
-  for( int  i = 0; i<nCnt; i++ )
-  {
-      if( MapData.getRoadY()[i] == 0  ) break;
-
-      road[i].x = x_pos + MapData.getRoadX()[i];
-      road[i].y = y_pos + MapData.getRoadY()[i];
-  }
-*/
+  scene.live.road.cnt = nCnt;
 
 
-
-  NVGcolor color = COLOR_RED;// nvgRGBAf(1.0, 0.0, 0.0, 1.0);
-  ui_draw_line( s, scene.live.road, scene.live.nCnt, &color, nullptr );
+  NVGcolor color = COLOR_RED;
+  ui_draw_line( s, scene.live.road.v, scene.live.road.cnt, &color, nullptr );
 }
 
 static void ui_draw_vision_event(UIState *s) 

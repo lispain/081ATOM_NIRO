@@ -93,6 +93,20 @@ typedef struct {
 } line;
 
 
+typedef struct {
+  float x, y;
+} vertex_data;
+
+typedef struct {
+  vertex_data v[MODEL_PATH_MAX_VERTICES_CNT];
+  int cnt;
+} line_vertices_data;
+
+typedef struct {
+  vertex_data v[TRACK_POINTS_MAX_CNT];
+  int cnt;
+} track_vertices_data;
+
 typedef struct UIScene {
 
   mat4 extrinsic_matrix;      // Last row is 0 so we can use mat4.
@@ -238,8 +252,8 @@ typedef struct UIScene {
     float speedlimitahead;
     float speedlimitaheaddistance;
     int   wayID;
-    int   nCnt;
-    vertex_data road[TRACK_POINTS_MAX_CNT];
+
+    track_vertices_data road;
   } live;
 
   struct _PathPlan
@@ -266,19 +280,6 @@ typedef struct UIScene {
   } cruiseState;  
 } UIScene;
 
-typedef struct {
-  float x, y;
-} vertex_data;
-
-typedef struct {
-  vertex_data v[MODEL_PATH_MAX_VERTICES_CNT];
-  int cnt;
-} line_vertices_data;
-
-typedef struct {
-  vertex_data v[TRACK_POINTS_MAX_CNT];
-  int cnt;
-} track_vertices_data;
 
 
 typedef struct UIState {

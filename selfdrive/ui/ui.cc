@@ -284,7 +284,7 @@ void update_sockets(UIState *s) {
     scene.live.speedlimitahead_valid = scene.live.MapData.getSpeedLimitAheadValid();
     scene.live.speedlimitaheaddistance = scene.live.MapData.getSpeedLimitAheadDistance();
 
-    scene.live.wayID = scene.live.MapData.getWayID();
+    scene.live.wayID = scene.live.MapData.getWayId();
     if( scene.live.wayID )
     {
       auto  roadX = scene.live.MapData.getRoadX();

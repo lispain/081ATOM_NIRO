@@ -563,7 +563,7 @@ static void ui_draw_debug(UIState *s)
 */
 static void ui_draw_gear( UIState *s )
 {
-  UIScene &scene = s->scene;  
+  UIScene &scene = s->scene;
   NVGcolor nColor = COLOR_WHITE;
 
   int  ngetGearShifter = int(scene.getGearShifter);
@@ -587,9 +587,11 @@ static void ui_draw_gear( UIState *s )
 }
 
 
-static void ui_draw_vision_speed(UIState *s) {
-  const Rect &viz_rect = s->scene.viz_rect;
-  float v_ego = s->scene.controls_state.getVEgo();
+static void ui_draw_vision_speed(UIState *s) 
+{
+  UIScene &scene = s->scene; 
+  const Rect &viz_rect = scene.viz_rect;
+  float v_ego = scene.controls_state.getVEgo();
   float speed = v_ego * 2.2369363 + 0.5;
   if (s->is_metric){
     speed = v_ego * 3.6 + 0.5;
@@ -599,8 +601,8 @@ static void ui_draw_vision_speed(UIState *s) {
   char speed_str[32];
   NVGcolor val_color = COLOR_WHITE;
 
-  if( s->scene.brakePress  ) val_color = COLOR_RED;
-  else if( s->scene.brakeLights ) val_color = nvgRGBA(201, 34, 49, 100);  
+  if( scene.brakePress  ) val_color = COLOR_RED;
+  else if( scene.brakeLights ) val_color = nvgRGBA(201, 34, 49, 100);  
 
   nvgBeginPath(s->vg);
   nvgRect(s->vg, viz_speed_x, viz_rect.y, viz_speed_w, header_h);

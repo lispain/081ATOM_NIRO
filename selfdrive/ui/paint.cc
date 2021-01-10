@@ -623,8 +623,8 @@ static void ui_draw_vision_speed(UIState *s)
   float  roadY[] = {-491.76569, -478.04706, -437.04861, -408.46875, -383.43127, -356.98236, -320.49487, -286.45096, -265.58896, -228.07533, -139.72853, -106.96433, -67.14547, -44.80117, -8.38932, 5.4373631, 26.343994, 47.278416, 90.096123, 0};
 
   int  nMax =  sizeof(roadX) / sizeof( roadX[0] );
-  int  x_pos = 700 - roadX[0];
-  int  y_pos = 700 - roadY[0];
+  int  x_pos = 900 - roadX[0];
+  int  y_pos = 300 - roadY[0];
   int  nCnt = 0;
 
   for( int  i = 0; i<nMax; i++ )

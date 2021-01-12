@@ -436,6 +436,17 @@ class CarState(CarStateBase):
       ("ACC_ObjRelSpd", "SCC11", 0),
       ("TauGapSet", "SCC11", 4),        
       ("ACCMode", "SCC12", 1),
+
+      ("HDA_USM", "LFAHDA_MFC", 0),
+      ("HDA_Active","LFAHDA_MFC", 0),
+      ("HDA_Icon_State","LFAHDA_MFC", 0),
+      ("HDA_Chime","LFAHDA_MFC", 0),
+      ("HDA_VSetReq","LFAHDA_MFC", 0),
+      ("HDA_SysWarning","LFAHDA_MFC", 0)
+      ("LFA_USM","LFAHDA_MFC", 0),
+      ("LFA_SysWarning","LFAHDA_MFC", 0),
+      ("LFA_Icon_State","LFAHDA_MFC", 0),
+      ("NEW_SIGNAL_1","LFAHDA_MFC", 0),      
     ]
 
     checks = [

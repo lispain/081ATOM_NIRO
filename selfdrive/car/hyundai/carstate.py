@@ -161,7 +161,7 @@ class CarState(CarStateBase):
     self.NEW_SIGNAL_1 = cp.vl["LFAHDA_MFC"]['NEW_SIGNAL_1']
     self.LFA_Icon_State = cp.vl["LFAHDA_MFC"]['LFA_Icon_State']
     self.LFA_USM = cp.vl["LFAHDA_MFC"]['LFA_USM']
-    self.HDA_SysWarning = cp.vl["LFAHDA_MFC"]['HDA_SysWarning']
+    self.HDA_SysWarning = 0 #cp.vl["LFAHDA_MFC"]['HDA_SysWarning']
 
 
     # save the entire LKAS11 and CLU11
@@ -442,7 +442,7 @@ class CarState(CarStateBase):
       ("HDA_Icon_State","LFAHDA_MFC", 0),
       ("HDA_Chime","LFAHDA_MFC", 0),
       ("HDA_VSetReq","LFAHDA_MFC", 0),
-      ("HDA_SysWarning","LFAHDA_MFC", 0)
+      #("HDA_SysWarning","LFAHDA_MFC", 0)
       ("LFA_USM","LFAHDA_MFC", 0),
       ("LFA_SysWarning","LFAHDA_MFC", 0),
       ("LFA_Icon_State","LFAHDA_MFC", 0),

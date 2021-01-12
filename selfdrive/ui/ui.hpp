@@ -252,8 +252,6 @@ typedef struct UIScene {
     float speedlimitahead;
     float speedlimitaheaddistance;
     int   wayID;
-
-    track_vertices_data road;
   } live;
 
   struct _PathPlan

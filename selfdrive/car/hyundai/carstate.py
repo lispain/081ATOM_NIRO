@@ -152,10 +152,23 @@ class CarState(CarStateBase):
       ret.stockFcw = cp.vl["SCC12"]['CF_VSM_Warn'] == 2
 
 
+    self.HDA_USM = cp.vl["LFAHDA_MFC"]['HDA_USM']
+    self.HDA_Active = cp.vl["LFAHDA_MFC"]['HDA_Active']
+    self.HDA_Icon_State = cp.vl["LFAHDA_MFC"]['HDA_Icon_State']
+    self.HDA_Chime = cp.vl["LFAHDA_MFC"]['HDA_Chime']
+    self.HDA_VSetReq = cp.vl["LFAHDA_MFC"]['HDA_VSetReq']
+    self.LFA_SysWarning = cp.vl["LFAHDA_MFC"]['LFA_SysWarning']
+    self.NEW_SIGNAL_1 = cp.vl["LFAHDA_MFC"]['NEW_SIGNAL_1']
+    self.LFA_Icon_State = cp.vl["LFAHDA_MFC"]['LFA_Icon_State']
+    self.LFA_USM = cp.vl["LFAHDA_MFC"]['LFA_USM']
+    self.HDA_SysWarning = cp.vl["LFAHDA_MFC"]['HDA_SysWarning']
+
+
     # save the entire LKAS11 and CLU11
     self.lkas11 = copy.copy(cp_cam.vl["LKAS11"])
     self.clu11 = copy.copy(cp.vl["CLU11"])
     self.mdps12 = copy.copy(cp.vl["MDPS12"])
+    self.lfahda_mfc = copy.copy(cp.vl["LFAHDA_MFC"])
 
     self.park_brake = cp.vl["CGW1"]['CF_Gway_ParkBrakeSw']
     self.steer_state = cp.vl["MDPS12"]['CF_Mdps_ToiActive']  # 0 NOT ACTIVE, 1 ACTIVE

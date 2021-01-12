@@ -2,7 +2,7 @@ from cereal import car, log
 from common.realtime import DT_CTRL
 from selfdrive.car import apply_std_steer_torque_limits
 from selfdrive.car.hyundai.hyundaican import create_lkas11, create_clu11, create_lfa_mfa, create_mdps12
-from selfdrive.car.hyundai.values import Buttons, SteerLimitParams, CAR, STEER_THRESHOLD
+from selfdrive.car.hyundai.values import Buttons, SteerLimitParams, CAR, FEATURES
 from opendbc.can.packer import CANPacker
 from selfdrive.config import Conversions as CV
 from common.numpy_fast import interp
@@ -276,8 +276,12 @@ class CarController():
     if steer_req:
       can_sends.append( create_mdps12(self.packer, frame, CS.mdps12) )
 
-    str_log1 = 'torg:{:5.0f}/{:5.0f}  CV={:5.1f}/{:5.1f}'.format( apply_steer, new_steer,  self.model_speed, self.model_sum  )
-    str_log2 = 'limit={:.0f} tm={:.1f} gap={:.0f}'.format( apply_steer_limit, self.timer1.sampleTime(), CS.cruiseGapSet  )
+    #str_log1 = 'torg:{:5.0f}/{:5.0f}  CV={:5.1f}/{:5.1f}'.format( apply_steer, new_steer,  self.model_speed, self.model_sum  )
+    #str_log2 = 'limit={:.0f} tm={:.1f} gap={:.0f}'.format( apply_steer_limit, self.timer1.sampleTime(), CS.cruiseGapSet  )
+    #trace1.printf( '{} {}'.format( str_log1, str_log2 ) )
+
+    str_log1 = 'HDA={} I{} W{} A{} S{} C{}'.format( CS.HDA_USM, CS.HDA_Icon_State, CS.HDA_SysWarning, CS.HDA_Active,  CS.HDA_VSetReq, CS.HDA_Chime )
+    str_log2 = 'LFA={} I{} W{} S{}'.format(         CS.LFA_USM, CS.LFA_Icon_State, CS.LFA_SysWarning, CS.NEW_SIGNAL_1  )
     trace1.printf( '{} {}'.format( str_log1, str_log2 ) )
 
     run_speed_ctrl = CS.acc_active and self.SC != None
@@ -314,8 +318,8 @@ class CarController():
         self.resume_cnt = 0
 
     # 20 Hz LFA MFA message
-    if frame % 5 == 0 and self.car_fingerprint in [CAR.SONATA, CAR.PALISADE, CAR.IONIQ, CAR.KIA_NIRO_EV, CAR.IONIQ_EV_2020]:
-      can_sends.append(create_lfa_mfa(self.packer, frame, enabled))
+    if frame % 5 == 0 and self.car_fingerprint in FEATURES["send_lfa_mfa"]:
+      can_sends.append(create_lfa_mfa(self.packer, frame, enabled, CS.lfahda_mfc))
 
    # counter inc
     self.lkas11_cnt += 1

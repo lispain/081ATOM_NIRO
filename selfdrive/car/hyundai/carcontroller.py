@@ -318,7 +318,7 @@ class CarController():
         self.resume_cnt = 0
 
     # 20 Hz LFA MFA message
-    if frame % 5 == 0 and self.car_fingerprint in FEATURES["send_lfa_mfa"]:
+    if frame % 5 == 0 and self.car_fingerprint in FEATURES["use_lfa_mfa"]:
       can_sends.append(create_lfa_mfa(self.packer, frame, enabled, CS.lfahda_mfc))
 
    # counter inc

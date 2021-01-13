@@ -280,9 +280,10 @@ class CarController():
     #str_log2 = 'limit={:.0f} tm={:.1f} gap={:.0f}'.format( apply_steer_limit, self.timer1.sampleTime(), CS.cruiseGapSet  )
     #trace1.printf( '{} {}'.format( str_log1, str_log2 ) )
 
-    str_log1 = 'HDA={} I{} W{} A{} S{} C{}'.format( CS.HDA_USM, CS.HDA_Icon_State, CS.HDA_SysWarning, CS.HDA_Active,  CS.HDA_VSetReq, CS.HDA_Chime )
-    str_log2 = 'LFA={} I{} W{} S{}'.format(         CS.LFA_USM, CS.LFA_Icon_State, CS.LFA_SysWarning, CS.NEW_SIGNAL_1  )
-    trace1.printf( '{} {}'.format( str_log1, str_log2 ) )
+
+    str_log1 = 'Navi=S:{} P:{} CA:{} CS:{}'.format( CS.ACC_ObjStatus, CS.ACC_ObjLatPos, CS.Navi_SCC_Camera_Act, CS.Navi_SCC_Camera_Status )
+
+    trace1.printf( '{}'.format( str_log1 ) )
 
     run_speed_ctrl = CS.acc_active and self.SC != None
     if not run_speed_ctrl:

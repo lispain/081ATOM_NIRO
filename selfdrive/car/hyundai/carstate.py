@@ -151,34 +151,16 @@ class CarState(CarStateBase):
       ret.stockAeb = cp.vl["SCC12"]['AEB_CmdAct'] != 0
       ret.stockFcw = cp.vl["SCC12"]['CF_VSM_Warn'] == 2
 
-    """
-    BO_ 1056 SCC11: 8 SCC
-    SG_ MainMode_ACC : 0|1@1+ (1,0) [0|1] "" CLU,EMS,ESC
-    SG_ SCCInfoDisplay : 1|3@1+ (1,0) [0|7] "" CLU,ESC
-    SG_ AliveCounterACC : 4|4@1+ (1,0) [0|15] "" CLU,EMS,ESC,TCU
-    SG_ VSetDis : 8|8@1+ (1,0) [0|255] "km/h or MPH" CLU,ESC,TCU
-    SG_ ObjValid : 16|1@1+ (1,0) [0|1] "" CLU,ESC,TCU
-    SG_ DriverAlertDisplay : 17|2@1+ (1,0) [0|3] "" CLU,ESC
-    SG_ TauGapSet : 19|3@1+ (1,0) [0|7] "" CLU,ESC,TCU
-    SG_ Navi_SCC_Curve_Status : 56|2@1+ (1,0) [0|3] "" CLU
-    SG_ Navi_SCC_Curve_Act : 58|2@1+ (1,0) [0|3] "" CLU
-    SG_ Navi_SCC_Camera_Act : 60|2@1+ (1,0) [0|3] "" CLU
-    SG_ Navi_SCC_Camera_Status : 62|2@1+ (1,0) [0|3] "" CLU
-    SG_ ACC_ObjStatus : 22|2@1+ (1,0) [0|3] "" ABS,ESC
-    SG_ ACC_ObjLatPos : 24|9@1+ (0.1,-20) [-20|31.1] "m" ABS,ESC
-    SG_ ACC_ObjRelSpd : 44|12@1+ (0.1,-170) [-170|239.5] "m/s" ABS,ESC
-    SG_ ACC_ObjDist : 33|11@1+ (0.1,0) [0|204.7] "m" ABS,ESC
-    """
-    self.HDA_USM = cp.vl["LFAHDA_MFC"]['HDA_USM']
-    self.HDA_Active = cp.vl["LFAHDA_MFC"]['HDA_Active']
-    self.HDA_Icon_State = cp.vl["LFAHDA_MFC"]['HDA_Icon_State']
-    self.HDA_Chime = cp.vl["LFAHDA_MFC"]['HDA_Chime']
-    self.HDA_VSetReq = cp.vl["LFAHDA_MFC"]['HDA_VSetReq']
-    self.LFA_SysWarning = cp.vl["LFAHDA_MFC"]['LFA_SysWarning']
-    self.NEW_SIGNAL_1 = cp.vl["LFAHDA_MFC"]['NEW_SIGNAL_1']
-    self.LFA_Icon_State = cp.vl["LFAHDA_MFC"]['LFA_Icon_State']
-    self.LFA_USM = cp.vl["LFAHDA_MFC"]['LFA_USM']
-    self.HDA_SysWarning = cp.vl["LFAHDA_MFC"]['HDA_SysWarning']
+
+
+
+
+    self.ACC_ObjStatus = cp.vl["SCC11"]['ACC_ObjStatus']
+    self.ACC_ObjLatPos = cp.vl["SCC11"]['ACC_ObjLatPos']
+
+    self.Navi_SCC_Camera_Act = cp.vl["SCC11"]['Navi_SCC_Camera_Act']
+    self.Navi_SCC_Camera_Status = cp.vl["SCC11"]['Navi_SCC_Camera_Status']
+
 
 
     # save the entire LKAS11 and CLU11
@@ -451,8 +433,16 @@ class CarState(CarStateBase):
       ("SCCInfoDisplay", "SCC11", 0),
       ("ACC_ObjDist", "SCC11", 0),
       ("ACC_ObjRelSpd", "SCC11", 0),
+      ("ACC_ObjStatus", "SCC11", 0),
+      ("ACC_ObjLatPos", "SCC11", 0),      
       ("TauGapSet", "SCC11", 4),        
       ("ACCMode", "SCC12", 1),
+
+      ("Navi_SCC_Camera_Act", "SCC11", 0),
+      ("Navi_SCC_Camera_Status", "SCC11", 0),
+
+
+  
 
       ("HDA_USM", "LFAHDA_MFC", 0),
       ("HDA_Active","LFAHDA_MFC", 0),

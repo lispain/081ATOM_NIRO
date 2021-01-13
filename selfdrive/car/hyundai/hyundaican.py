@@ -80,10 +80,10 @@ def create_clu11(packer, frame, clu11, button, speed = None):
 def create_lfa_mfa(packer, frame, enabled, lfahda_mfc, hda_set_speed = 0):
   values = lfahda_mfc 
 
-  #values["HDA_USM"] = 2
+  values["HDA_USM"] = 2
   #values["LFA_Icon_State"]  = 2 if enabled else 0
-  values["HDA_SysWarning"] = 1 if enabled else 0
-  values["HDA_Active"] = 1 if enabled else 0
+  #values["HDA_SysWarning"] = 1 if enabled else 0
+  #values["HDA_Active"] = 1 if enabled else 0
   #values["HDA_Icon_State"] = 2 if enabled else 0   # 1:HDA(stanby),  2:HDA:white
 
   if hda_set_speed:

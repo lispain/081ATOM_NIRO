@@ -281,7 +281,7 @@ class CarController():
     #trace1.printf( '{} {}'.format( str_log1, str_log2 ) )
 
 
-    str_log1 = 'Navi=S:{} P:{} CA:{} CS:{}'.format( CS.ACC_ObjStatus, CS.ACC_ObjLatPos, CS.Navi_SCC_Camera_Act, CS.Navi_SCC_Camera_Status )
+    str_log1 = 'Navi=S:{} P:{:.1f} CA:{} CS:{}'.format( CS.ACC_ObjStatus, CS.ACC_ObjLatPos, CS.Navi_SCC_Camera_Act, CS.Navi_SCC_Camera_Status )
 
     trace1.printf( '{}'.format( str_log1 ) )
 

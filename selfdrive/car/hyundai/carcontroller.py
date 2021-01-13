@@ -20,28 +20,6 @@ import copy
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 LaneChangeState = log.PathPlan.LaneChangeState
 
-def process_hud_alert(enabled, fingerprint, visual_alert, left_lane,
-                      right_lane, left_lane_depart, right_lane_depart):
-  sys_warning = (visual_alert == VisualAlert.steerRequired)
-
-  # initialize to no line visible
-  sys_state = 1
-  if left_lane and right_lane or sys_warning:  # HUD alert only display when LKAS status is active
-    sys_state = 3 if enabled or sys_warning else 4
-  elif left_lane:
-    sys_state = 5
-  elif right_lane:
-    sys_state = 6
-
-  # initialize to no warnings
-  left_lane_warning = 0
-  right_lane_warning = 0
-  if left_lane_depart:
-    left_lane_warning = 1 if fingerprint in [CAR.GENESIS_G90, CAR.GENESIS_G80] else 2
-  if right_lane_depart:
-    right_lane_warning = 1 if fingerprint in [CAR.GENESIS_G90, CAR.GENESIS_G80] else 2
-
-  return sys_warning, sys_state, left_lane_warning, right_lane_warning
 
 
 class CarController():
@@ -97,7 +75,7 @@ class CarController():
     return value
 
 
-  def process_hud_alert(self, enabled, c ):
+  def process_hud_alert(self, enabled, c, Navi_SCC_Camera_Act ):
     visual_alert = c.hudControl.visualAlert
     left_lane = c.hudControl.leftLaneVisible
     right_lane = c.hudControl.rightLaneVisible
@@ -119,7 +97,9 @@ class CarController():
 
     # initialize to no line visible
     sys_state = 1
-    if self.hud_timer_left and self.hud_timer_right or sys_warning:  # HUD alert only display when LKAS status is active
+    if Navi_SCC_Camera_Act:
+      sys_state = 4
+    elif self.hud_timer_left and self.hud_timer_right or sys_warning:  # HUD alert only display when LKAS status is active
       if (self.steer_torque_ratio > 0.7) and (enabled or sys_warning):
         sys_state = 3
       else:
@@ -263,7 +243,7 @@ class CarController():
     steer_req = 1 if apply_steer else 0
     self.apply_steer_last = apply_steer
 
-    sys_warning, self.hud_sys_state = self.process_hud_alert( lkas_active, c )
+    sys_warning, self.hud_sys_state = self.process_hud_alert( lkas_active, c, CS.Navi_SCC_Camera_Act )
 
     if frame == 0: # initialize counts from last received count signals
       self.lkas11_cnt = CS.lkas11["CF_Lkas_MsgCount"] + 1
@@ -320,7 +300,7 @@ class CarController():
 
     # 20 Hz LFA MFA message
     if frame % 5 == 0 and self.car_fingerprint in FEATURES["use_lfa_mfa"]:
-      can_sends.append(create_lfa_mfa(self.packer, frame, enabled, CS.lfahda_mfc))
+      can_sends.append(create_lfa_mfa(self.packer, frame, enabled, CS.Navi_SCC_Camera_Act, CS.lfahda_mfc))
 
    # counter inc
     self.lkas11_cnt += 1

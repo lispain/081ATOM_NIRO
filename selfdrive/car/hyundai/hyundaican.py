@@ -77,11 +77,18 @@ def create_clu11(packer, frame, clu11, button, speed = None):
   return packer.make_can_msg("CLU11", 0, values)
 
 
-def create_lfa_mfa(packer, frame, enabled, lfahda_mfc, hda_set_speed = 0):
+def create_lfa_mfa(packer, frame, enabled, Navi_SCC_Camera_Act, lfahda_mfc, hda_set_speed = 0):
   values = lfahda_mfc 
 
-  if enabled:
+  if Navi_SCC_Camera_Act:
     values["HDA_USM"] = 2
+    #values["HDA_Active"] = 1 if enabled else 0
+    values["HDA_SysWarning"] = 1 if enabled else 0
+    values["HDA_Icon_State"] = 2 if enabled else 0   # 1:HDA(stanby),  2:HDA:white
+  else:
+    values["HDA_SysWarning"] = 2 if enabled else 0
+
+    
   #values["LFA_Icon_State"]  = 2 if enabled else 0
   #values["HDA_SysWarning"] = 1 if enabled else 0
   #values["HDA_Active"] = 1 if enabled else 0
@@ -113,11 +120,6 @@ def create_lfa_mfa(packer, frame, enabled, lfahda_mfc, hda_set_speed = 0):
   }
   """
   # HDA_USM 2 = ?
-
-  # HDA_C_State 0 = HDA not available
-  # HDA_C_State 4 = HDA available
-  # HDA_C_State 5 = HDA active
-
   # HDA_VSetReq = HDA speed limit
 
   # LFA_SysWarning 1 = "Switching to HDA", short beep

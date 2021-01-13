@@ -82,8 +82,9 @@ def create_lfa_mfa(packer, frame, enabled, lfahda_mfc, hda_set_speed = 0):
 
   #values["HDA_USM"] = 2
   #values["LFA_Icon_State"]  = 2 if enabled else 0
-  #values["HDA_Active"] = 1 if enabled else 0
-  values["HDA_Icon_State"] = 3 if enabled else 0   # 1:HDA(stanby),  2:HDA:white
+  values["HDA_SysWarning"] = 1 if enabled else 0
+  values["HDA_Active"] = 1 if enabled else 0
+  #values["HDA_Icon_State"] = 2 if enabled else 0   # 1:HDA(stanby),  2:HDA:white
 
   if hda_set_speed:
     values["HDA_VSetReq"] = hda_set_speed

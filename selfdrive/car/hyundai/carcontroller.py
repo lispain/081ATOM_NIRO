@@ -97,9 +97,9 @@ class CarController():
 
     # initialize to no line visible
     sys_state = 1
-    if Navi_SCC_Camera_Act:
-      sys_state = 4
-    elif self.hud_timer_left and self.hud_timer_right or sys_warning:  # HUD alert only display when LKAS status is active
+    #if Navi_SCC_Camera_Act:
+    #  sys_state = 4
+    if self.hud_timer_left and self.hud_timer_right or sys_warning:  # HUD alert only display when LKAS status is active
       if (self.steer_torque_ratio > 0.7) and (enabled or sys_warning):
         sys_state = 3
       else:

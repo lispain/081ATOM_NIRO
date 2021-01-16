@@ -256,14 +256,14 @@ class CarController():
     if steer_req:
       can_sends.append( create_mdps12(self.packer, frame, CS.mdps12) )
 
-    #str_log1 = 'torg:{:5.0f}/{:5.0f}  CV={:5.1f}/{:5.1f}'.format( apply_steer, new_steer,  self.model_speed, self.model_sum  )
-    #str_log2 = 'limit={:.0f} tm={:.1f} gap={:.0f}'.format( apply_steer_limit, self.timer1.sampleTime(), CS.cruiseGapSet  )
-    #trace1.printf( '{} {}'.format( str_log1, str_log2 ) )
+    str_log1 = 'torg:{:5.0f}/{:5.0f}  CV={:5.1f}/{:5.1f}'.format( apply_steer, new_steer,  self.model_speed, self.model_sum  )
+    str_log2 = 'limit={:.0f} tm={:.1f} gap={:.0f}'.format( apply_steer_limit, self.timer1.sampleTime(), CS.cruiseGapSet  )
+    trace1.printf( '{} {}'.format( str_log1, str_log2 ) )
 
 
-    str_log1 = 'Navi=S:{} P:{:.1f} CA:{} CS:{}'.format( CS.ACC_ObjStatus, CS.ACC_ObjLatPos, CS.Navi_SCC_Camera_Act, CS.Navi_SCC_Camera_Status )
+    #str_log1 = 'Navi=S:{} P:{:.1f} CA:{} CS:{}'.format( CS.ACC_ObjStatus, CS.ACC_ObjLatPos, CS.Navi_SCC_Camera_Act, CS.Navi_SCC_Camera_Status )
 
-    trace1.printf( '{}'.format( str_log1 ) )
+    #trace1.printf( '{}'.format( str_log1 ) )
 
     run_speed_ctrl = CS.acc_active and self.SC != None
     if not run_speed_ctrl:

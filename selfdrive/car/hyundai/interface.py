@@ -300,6 +300,14 @@ class CarInterface(CarInterfaceBase):
     ret.sasBus = 1 if 688 in fingerprint[1] and 1296 not in fingerprint[1] else 0
     ret.sccBus = 0 if 1056 in fingerprint[0] else 1 if 1056 in fingerprint[1] and 1296 not in fingerprint[1] \
                                                                      else 2 if 1056 in fingerprint[2] else -1
+                                        
+    ret.radarOffCan = False
+    ret.openpilotLongitudinalControl = False
+    ret.enableCruise = not ret.radarOffCan
+    
+    # set safety_hyundai_community only for non-SCC, MDPS harrness or SCC harrness cars or cars that have unknown issue
+    if ret.radarOffCan or ret.mdpsBus == 1 or ret.openpilotLongitudinalControl or ret.sccBus == 1 or True:
+      ret.safetyModel = car.CarParams.SafetyModel.hyundaiCommunity
 
     return ret
 

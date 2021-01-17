@@ -15,6 +15,7 @@ from selfdrive.car.hyundai.spdctrlNormal  import SpdctrlNormal
 from common.params import Params
 import common.log as trace1
 import common.CTime1000 as tm
+import common.MoveAvg as moveavg1
 import copy
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
@@ -48,6 +49,7 @@ class CarController():
     self.yRel = 0
     self.vRel = 0
 
+    self.movAvg = moveavg1.MoveAvg()
     self.timer1 = tm.CTime1000("time")
     self.model_speed = 0
     self.model_sum = 0

@@ -429,9 +429,9 @@ struct CarParams {
   longcontrolEnabled @54  :Bool;
   lateralsRatom @55 :LateralsRatom;
   atomTuning @56 :AtomTuning;
-  mdpsBus @54: Int8;
-  sasBus @55: Int8;
-  sccBus @56: Int8;
+  mdpsBus @57: Int8;
+  sasBus @58: Int8;
+  sccBus @59: Int8;
 
   struct AtomTuning {
     cvKPH @0 :List(Float32);

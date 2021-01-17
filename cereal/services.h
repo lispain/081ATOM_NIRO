@@ -74,5 +74,8 @@ static struct service services[] = {
   { .name = "testModel", .port = 8040, .should_log = false, .frequency = 0, .decimation = -1 },
   { .name = "testLiveLocation", .port = 8045, .should_log = false, .frequency = 0, .decimation = -1 },
   { .name = "testJoystick", .port = 8056, .should_log = false, .frequency = 0, .decimation = -1 },
+  { .name = "liveTrafficData", .port = 8208, .should_log = false, .frequency = 100, .decimation = -1 },
+  { .name = "trafficModelEvent", .port = 8218, .should_log = false, .frequency = 5, .decimation = -1 },
+  { .name = "trafficModelRaw", .port = 8219, .should_log = false, .frequency = 5, .decimation = -1 },
 };
 #endif

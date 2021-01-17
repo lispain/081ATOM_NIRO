@@ -507,6 +507,9 @@ enum class SentinelType_a2d8e61eb6f7031a: uint16_t {
   START_OF_ROUTE,
 };
 CAPNP_DECLARE_ENUM(SentinelType, a2d8e61eb6f7031a);
+CAPNP_DECLARE_SCHEMA(cc181c41ae54e7a3);
+CAPNP_DECLARE_SCHEMA(800f56411c3a4f38);
+CAPNP_DECLARE_SCHEMA(cdd10b9f0905ae1a);
 CAPNP_DECLARE_SCHEMA(d314cfd957229c11);
 
 }  // namespace schemas
@@ -932,7 +935,7 @@ struct ControlsState {
   struct LateralControlState;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(97ff69c53601abf1, 22, 6)
+    CAPNP_DECLARE_STRUCT_HEADER(97ff69c53601abf1, 23, 8)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -997,7 +1000,7 @@ struct ControlsState::LateralControlState {
   };
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(fd5b914d6b444695, 22, 6)
+    CAPNP_DECLARE_STRUCT_HEADER(fd5b914d6b444695, 23, 8)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -2317,6 +2320,51 @@ struct Sentinel {
   };
 };
 
+struct LiveTrafficData {
+  LiveTrafficData() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(cc181c41ae54e7a3, 2, 0)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct TrafficModelRaw {
+  TrafficModelRaw() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(800f56411c3a4f38, 0, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
+struct TrafficModelEvent {
+  TrafficModelEvent() = delete;
+
+  class Reader;
+  class Builder;
+  class Pipeline;
+
+  struct _capnpPrivate {
+    CAPNP_DECLARE_STRUCT_HEADER(cdd10b9f0905ae1a, 1, 1)
+    #if !CAPNP_LITE
+    static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
+    #endif  // !CAPNP_LITE
+  };
+};
+
 struct Event {
   Event() = delete;
 
@@ -2400,6 +2448,9 @@ struct Event {
     MODEL_V2,
     FRONT_ENCODE_IDX,
     WIDE_ENCODE_IDX,
+    LIVE_TRAFFIC_DATA,
+    TRAFFIC_MODEL_RAW,
+    TRAFFIC_MODEL_EVENT,
   };
 
   struct _capnpPrivate {
@@ -5883,6 +5934,16 @@ public:
 
   inline  ::uint32_t getCanErrorCounter() const;
 
+  inline float getOutput() const;
+
+  inline bool hasAlertTextMsg1() const;
+  inline  ::capnp::Text::Reader getAlertTextMsg1() const;
+
+  inline bool hasAlertTextMsg2() const;
+  inline  ::capnp::Text::Reader getAlertTextMsg2() const;
+
+  inline float getModelSum() const;
+
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -6099,6 +6160,26 @@ public:
 
   inline  ::uint32_t getCanErrorCounter();
   inline void setCanErrorCounter( ::uint32_t value);
+
+  inline float getOutput();
+  inline void setOutput(float value);
+
+  inline bool hasAlertTextMsg1();
+  inline  ::capnp::Text::Builder getAlertTextMsg1();
+  inline void setAlertTextMsg1( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initAlertTextMsg1(unsigned int size);
+  inline void adoptAlertTextMsg1(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownAlertTextMsg1();
+
+  inline bool hasAlertTextMsg2();
+  inline  ::capnp::Text::Builder getAlertTextMsg2();
+  inline void setAlertTextMsg2( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initAlertTextMsg2(unsigned int size);
+  inline void adoptAlertTextMsg2(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownAlertTextMsg2();
+
+  inline float getModelSum();
+  inline void setModelSum(float value);
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -17558,6 +17639,265 @@ private:
 };
 #endif  // !CAPNP_LITE
 
+class LiveTrafficData::Reader {
+public:
+  typedef LiveTrafficData Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool getSpeedLimitValid() const;
+
+  inline float getSpeedLimit() const;
+
+  inline bool getSpeedAdvisoryValid() const;
+
+  inline float getSpeedAdvisory() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class LiveTrafficData::Builder {
+public:
+  typedef LiveTrafficData Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool getSpeedLimitValid();
+  inline void setSpeedLimitValid(bool value);
+
+  inline float getSpeedLimit();
+  inline void setSpeedLimit(float value);
+
+  inline bool getSpeedAdvisoryValid();
+  inline void setSpeedAdvisoryValid(bool value);
+
+  inline float getSpeedAdvisory();
+  inline void setSpeedAdvisory(float value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class LiveTrafficData::Pipeline {
+public:
+  typedef LiveTrafficData Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class TrafficModelRaw::Reader {
+public:
+  typedef TrafficModelRaw Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasPrediction() const;
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader getPrediction() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class TrafficModelRaw::Builder {
+public:
+  typedef TrafficModelRaw Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasPrediction();
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder getPrediction();
+  inline void setPrediction( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value);
+  inline void setPrediction(::kj::ArrayPtr<const float> value);
+  inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder initPrediction(unsigned int size);
+  inline void adoptPrediction(::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value);
+  inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> disownPrediction();
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class TrafficModelRaw::Pipeline {
+public:
+  typedef TrafficModelRaw Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
+class TrafficModelEvent::Reader {
+public:
+  typedef TrafficModelEvent Reads;
+
+  Reader() = default;
+  inline explicit Reader(::capnp::_::StructReader base): _reader(base) {}
+
+  inline ::capnp::MessageSize totalSize() const {
+    return _reader.totalSize().asPublic();
+  }
+
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const {
+    return ::capnp::_::structString(_reader, *_capnpPrivate::brand());
+  }
+#endif  // !CAPNP_LITE
+
+  inline bool hasStatus() const;
+  inline  ::capnp::Text::Reader getStatus() const;
+
+  inline float getConfidence() const;
+
+private:
+  ::capnp::_::StructReader _reader;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::List;
+  friend class ::capnp::MessageBuilder;
+  friend class ::capnp::Orphanage;
+};
+
+class TrafficModelEvent::Builder {
+public:
+  typedef TrafficModelEvent Builds;
+
+  Builder() = delete;  // Deleted to discourage incorrect usage.
+                       // You can explicitly initialize to nullptr instead.
+  inline Builder(decltype(nullptr)) {}
+  inline explicit Builder(::capnp::_::StructBuilder base): _builder(base) {}
+  inline operator Reader() const { return Reader(_builder.asReader()); }
+  inline Reader asReader() const { return *this; }
+
+  inline ::capnp::MessageSize totalSize() const { return asReader().totalSize(); }
+#if !CAPNP_LITE
+  inline ::kj::StringTree toString() const { return asReader().toString(); }
+#endif  // !CAPNP_LITE
+
+  inline bool hasStatus();
+  inline  ::capnp::Text::Builder getStatus();
+  inline void setStatus( ::capnp::Text::Reader value);
+  inline  ::capnp::Text::Builder initStatus(unsigned int size);
+  inline void adoptStatus(::capnp::Orphan< ::capnp::Text>&& value);
+  inline ::capnp::Orphan< ::capnp::Text> disownStatus();
+
+  inline float getConfidence();
+  inline void setConfidence(float value);
+
+private:
+  ::capnp::_::StructBuilder _builder;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+  friend class ::capnp::Orphanage;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::_::PointerHelpers;
+};
+
+#if !CAPNP_LITE
+class TrafficModelEvent::Pipeline {
+public:
+  typedef TrafficModelEvent Pipelines;
+
+  inline Pipeline(decltype(nullptr)): _typeless(nullptr) {}
+  inline explicit Pipeline(::capnp::AnyPointer::Pipeline&& typeless)
+      : _typeless(kj::mv(typeless)) {}
+
+private:
+  ::capnp::AnyPointer::Pipeline _typeless;
+  friend class ::capnp::PipelineHook;
+  template <typename, ::capnp::Kind>
+  friend struct ::capnp::ToDynamic_;
+};
+#endif  // !CAPNP_LITE
+
 class Event::Reader {
 public:
   typedef Event Reads;
@@ -17883,6 +18223,18 @@ public:
   inline bool isWideEncodeIdx() const;
   inline bool hasWideEncodeIdx() const;
   inline  ::cereal::EncodeIndex::Reader getWideEncodeIdx() const;
+
+  inline bool isLiveTrafficData() const;
+  inline bool hasLiveTrafficData() const;
+  inline  ::cereal::LiveTrafficData::Reader getLiveTrafficData() const;
+
+  inline bool isTrafficModelRaw() const;
+  inline bool hasTrafficModelRaw() const;
+  inline  ::cereal::TrafficModelRaw::Reader getTrafficModelRaw() const;
+
+  inline bool isTrafficModelEvent() const;
+  inline bool hasTrafficModelEvent() const;
+  inline  ::cereal::TrafficModelEvent::Reader getTrafficModelEvent() const;
 
 private:
   ::capnp::_::StructReader _reader;
@@ -18526,6 +18878,30 @@ public:
   inline  ::cereal::EncodeIndex::Builder initWideEncodeIdx();
   inline void adoptWideEncodeIdx(::capnp::Orphan< ::cereal::EncodeIndex>&& value);
   inline ::capnp::Orphan< ::cereal::EncodeIndex> disownWideEncodeIdx();
+
+  inline bool isLiveTrafficData();
+  inline bool hasLiveTrafficData();
+  inline  ::cereal::LiveTrafficData::Builder getLiveTrafficData();
+  inline void setLiveTrafficData( ::cereal::LiveTrafficData::Reader value);
+  inline  ::cereal::LiveTrafficData::Builder initLiveTrafficData();
+  inline void adoptLiveTrafficData(::capnp::Orphan< ::cereal::LiveTrafficData>&& value);
+  inline ::capnp::Orphan< ::cereal::LiveTrafficData> disownLiveTrafficData();
+
+  inline bool isTrafficModelRaw();
+  inline bool hasTrafficModelRaw();
+  inline  ::cereal::TrafficModelRaw::Builder getTrafficModelRaw();
+  inline void setTrafficModelRaw( ::cereal::TrafficModelRaw::Reader value);
+  inline  ::cereal::TrafficModelRaw::Builder initTrafficModelRaw();
+  inline void adoptTrafficModelRaw(::capnp::Orphan< ::cereal::TrafficModelRaw>&& value);
+  inline ::capnp::Orphan< ::cereal::TrafficModelRaw> disownTrafficModelRaw();
+
+  inline bool isTrafficModelEvent();
+  inline bool hasTrafficModelEvent();
+  inline  ::cereal::TrafficModelEvent::Builder getTrafficModelEvent();
+  inline void setTrafficModelEvent( ::cereal::TrafficModelEvent::Reader value);
+  inline  ::cereal::TrafficModelEvent::Builder initTrafficModelEvent();
+  inline void adoptTrafficModelEvent(::capnp::Orphan< ::cereal::TrafficModelEvent>&& value);
+  inline ::capnp::Orphan< ::cereal::TrafficModelEvent> disownTrafficModelEvent();
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -24920,6 +25296,102 @@ inline  ::uint32_t ControlsState::Builder::getCanErrorCounter() {
 inline void ControlsState::Builder::setCanErrorCounter( ::uint32_t value) {
   _builder.setDataField< ::uint32_t>(
       ::capnp::bounded<43>() * ::capnp::ELEMENTS, value);
+}
+
+inline float ControlsState::Reader::getOutput() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<44>() * ::capnp::ELEMENTS);
+}
+
+inline float ControlsState::Builder::getOutput() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<44>() * ::capnp::ELEMENTS);
+}
+inline void ControlsState::Builder::setOutput(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<44>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool ControlsState::Reader::hasAlertTextMsg1() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS).isNull();
+}
+inline bool ControlsState::Builder::hasAlertTextMsg1() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader ControlsState::Reader::getAlertTextMsg1() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder ControlsState::Builder::getAlertTextMsg1() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS));
+}
+inline void ControlsState::Builder::setAlertTextMsg1( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder ControlsState::Builder::initAlertTextMsg1(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS), size);
+}
+inline void ControlsState::Builder::adoptAlertTextMsg1(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> ControlsState::Builder::disownAlertTextMsg1() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<6>() * ::capnp::POINTERS));
+}
+
+inline bool ControlsState::Reader::hasAlertTextMsg2() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS).isNull();
+}
+inline bool ControlsState::Builder::hasAlertTextMsg2() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader ControlsState::Reader::getAlertTextMsg2() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder ControlsState::Builder::getAlertTextMsg2() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS));
+}
+inline void ControlsState::Builder::setAlertTextMsg2( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder ControlsState::Builder::initAlertTextMsg2(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS), size);
+}
+inline void ControlsState::Builder::adoptAlertTextMsg2(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> ControlsState::Builder::disownAlertTextMsg2() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<7>() * ::capnp::POINTERS));
+}
+
+inline float ControlsState::Reader::getModelSum() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<45>() * ::capnp::ELEMENTS);
+}
+
+inline float ControlsState::Builder::getModelSum() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<45>() * ::capnp::ELEMENTS);
+}
+inline void ControlsState::Builder::setModelSum(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<45>() * ::capnp::ELEMENTS, value);
 }
 
 inline bool ControlsState::LateralINDIState::Reader::getActive() const {
@@ -41718,6 +42190,148 @@ inline void Sentinel::Builder::setType( ::cereal::Sentinel::SentinelType value) 
       ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
 }
 
+inline bool LiveTrafficData::Reader::getSpeedLimitValid() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline bool LiveTrafficData::Builder::getSpeedLimitValid() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void LiveTrafficData::Builder::setSpeedLimitValid(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
+inline float LiveTrafficData::Reader::getSpeedLimit() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline float LiveTrafficData::Builder::getSpeedLimit() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void LiveTrafficData::Builder::setSpeedLimit(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool LiveTrafficData::Reader::getSpeedAdvisoryValid() const {
+  return _reader.getDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+
+inline bool LiveTrafficData::Builder::getSpeedAdvisoryValid() {
+  return _builder.getDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS);
+}
+inline void LiveTrafficData::Builder::setSpeedAdvisoryValid(bool value) {
+  _builder.setDataField<bool>(
+      ::capnp::bounded<1>() * ::capnp::ELEMENTS, value);
+}
+
+inline float LiveTrafficData::Reader::getSpeedAdvisory() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+
+inline float LiveTrafficData::Builder::getSpeedAdvisory() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS);
+}
+inline void LiveTrafficData::Builder::setSpeedAdvisory(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<2>() * ::capnp::ELEMENTS, value);
+}
+
+inline bool TrafficModelRaw::Reader::hasPrediction() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool TrafficModelRaw::Builder::hasPrediction() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader TrafficModelRaw::Reader::getPrediction() const {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder TrafficModelRaw::Builder::getPrediction() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void TrafficModelRaw::Builder::setPrediction( ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline void TrafficModelRaw::Builder::setPrediction(::kj::ArrayPtr<const float> value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>::Builder TrafficModelRaw::Builder::initPrediction(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+inline void TrafficModelRaw::Builder::adoptPrediction(
+    ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>> TrafficModelRaw::Builder::disownPrediction() {
+  return ::capnp::_::PointerHelpers< ::capnp::List<float,  ::capnp::Kind::PRIMITIVE>>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool TrafficModelEvent::Reader::hasStatus() const {
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool TrafficModelEvent::Builder::hasStatus() {
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::capnp::Text::Reader TrafficModelEvent::Reader::getStatus() const {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::capnp::Text::Builder TrafficModelEvent::Builder::getStatus() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void TrafficModelEvent::Builder::setStatus( ::capnp::Text::Reader value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::capnp::Text::Builder TrafficModelEvent::Builder::initStatus(unsigned int size) {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), size);
+}
+inline void TrafficModelEvent::Builder::adoptStatus(
+    ::capnp::Orphan< ::capnp::Text>&& value) {
+  ::capnp::_::PointerHelpers< ::capnp::Text>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::capnp::Text> TrafficModelEvent::Builder::disownStatus() {
+  return ::capnp::_::PointerHelpers< ::capnp::Text>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline float TrafficModelEvent::Reader::getConfidence() const {
+  return _reader.getDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+
+inline float TrafficModelEvent::Builder::getConfidence() {
+  return _builder.getDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS);
+}
+inline void TrafficModelEvent::Builder::setConfidence(float value) {
+  _builder.setDataField<float>(
+      ::capnp::bounded<0>() * ::capnp::ELEMENTS, value);
+}
+
 inline  ::cereal::Event::Which Event::Reader::which() const {
   return _reader.getDataField<Which>(
       ::capnp::bounded<4>() * ::capnp::ELEMENTS);
@@ -45856,6 +46470,168 @@ inline ::capnp::Orphan< ::cereal::EncodeIndex> Event::Builder::disownWideEncodeI
   KJ_IREQUIRE((which() == Event::WIDE_ENCODE_IDX),
               "Must check which() before get()ing a union member.");
   return ::capnp::_::PointerHelpers< ::cereal::EncodeIndex>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Event::Reader::isLiveTrafficData() const {
+  return which() == Event::LIVE_TRAFFIC_DATA;
+}
+inline bool Event::Builder::isLiveTrafficData() {
+  return which() == Event::LIVE_TRAFFIC_DATA;
+}
+inline bool Event::Reader::hasLiveTrafficData() const {
+  if (which() != Event::LIVE_TRAFFIC_DATA) return false;
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Event::Builder::hasLiveTrafficData() {
+  if (which() != Event::LIVE_TRAFFIC_DATA) return false;
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::LiveTrafficData::Reader Event::Reader::getLiveTrafficData() const {
+  KJ_IREQUIRE((which() == Event::LIVE_TRAFFIC_DATA),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::LiveTrafficData>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::cereal::LiveTrafficData::Builder Event::Builder::getLiveTrafficData() {
+  KJ_IREQUIRE((which() == Event::LIVE_TRAFFIC_DATA),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::LiveTrafficData>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::setLiveTrafficData( ::cereal::LiveTrafficData::Reader value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::LIVE_TRAFFIC_DATA);
+  ::capnp::_::PointerHelpers< ::cereal::LiveTrafficData>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::LiveTrafficData::Builder Event::Builder::initLiveTrafficData() {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::LIVE_TRAFFIC_DATA);
+  return ::capnp::_::PointerHelpers< ::cereal::LiveTrafficData>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::adoptLiveTrafficData(
+    ::capnp::Orphan< ::cereal::LiveTrafficData>&& value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::LIVE_TRAFFIC_DATA);
+  ::capnp::_::PointerHelpers< ::cereal::LiveTrafficData>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::LiveTrafficData> Event::Builder::disownLiveTrafficData() {
+  KJ_IREQUIRE((which() == Event::LIVE_TRAFFIC_DATA),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::LiveTrafficData>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Event::Reader::isTrafficModelRaw() const {
+  return which() == Event::TRAFFIC_MODEL_RAW;
+}
+inline bool Event::Builder::isTrafficModelRaw() {
+  return which() == Event::TRAFFIC_MODEL_RAW;
+}
+inline bool Event::Reader::hasTrafficModelRaw() const {
+  if (which() != Event::TRAFFIC_MODEL_RAW) return false;
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Event::Builder::hasTrafficModelRaw() {
+  if (which() != Event::TRAFFIC_MODEL_RAW) return false;
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::TrafficModelRaw::Reader Event::Reader::getTrafficModelRaw() const {
+  KJ_IREQUIRE((which() == Event::TRAFFIC_MODEL_RAW),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelRaw>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::cereal::TrafficModelRaw::Builder Event::Builder::getTrafficModelRaw() {
+  KJ_IREQUIRE((which() == Event::TRAFFIC_MODEL_RAW),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelRaw>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::setTrafficModelRaw( ::cereal::TrafficModelRaw::Reader value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TRAFFIC_MODEL_RAW);
+  ::capnp::_::PointerHelpers< ::cereal::TrafficModelRaw>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::TrafficModelRaw::Builder Event::Builder::initTrafficModelRaw() {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TRAFFIC_MODEL_RAW);
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelRaw>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::adoptTrafficModelRaw(
+    ::capnp::Orphan< ::cereal::TrafficModelRaw>&& value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TRAFFIC_MODEL_RAW);
+  ::capnp::_::PointerHelpers< ::cereal::TrafficModelRaw>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::TrafficModelRaw> Event::Builder::disownTrafficModelRaw() {
+  KJ_IREQUIRE((which() == Event::TRAFFIC_MODEL_RAW),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelRaw>::disown(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+
+inline bool Event::Reader::isTrafficModelEvent() const {
+  return which() == Event::TRAFFIC_MODEL_EVENT;
+}
+inline bool Event::Builder::isTrafficModelEvent() {
+  return which() == Event::TRAFFIC_MODEL_EVENT;
+}
+inline bool Event::Reader::hasTrafficModelEvent() const {
+  if (which() != Event::TRAFFIC_MODEL_EVENT) return false;
+  return !_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline bool Event::Builder::hasTrafficModelEvent() {
+  if (which() != Event::TRAFFIC_MODEL_EVENT) return false;
+  return !_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS).isNull();
+}
+inline  ::cereal::TrafficModelEvent::Reader Event::Reader::getTrafficModelEvent() const {
+  KJ_IREQUIRE((which() == Event::TRAFFIC_MODEL_EVENT),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelEvent>::get(_reader.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline  ::cereal::TrafficModelEvent::Builder Event::Builder::getTrafficModelEvent() {
+  KJ_IREQUIRE((which() == Event::TRAFFIC_MODEL_EVENT),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelEvent>::get(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::setTrafficModelEvent( ::cereal::TrafficModelEvent::Reader value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TRAFFIC_MODEL_EVENT);
+  ::capnp::_::PointerHelpers< ::cereal::TrafficModelEvent>::set(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), value);
+}
+inline  ::cereal::TrafficModelEvent::Builder Event::Builder::initTrafficModelEvent() {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TRAFFIC_MODEL_EVENT);
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelEvent>::init(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS));
+}
+inline void Event::Builder::adoptTrafficModelEvent(
+    ::capnp::Orphan< ::cereal::TrafficModelEvent>&& value) {
+  _builder.setDataField<Event::Which>(
+      ::capnp::bounded<4>() * ::capnp::ELEMENTS, Event::TRAFFIC_MODEL_EVENT);
+  ::capnp::_::PointerHelpers< ::cereal::TrafficModelEvent>::adopt(_builder.getPointerField(
+      ::capnp::bounded<0>() * ::capnp::POINTERS), kj::mv(value));
+}
+inline ::capnp::Orphan< ::cereal::TrafficModelEvent> Event::Builder::disownTrafficModelEvent() {
+  KJ_IREQUIRE((which() == Event::TRAFFIC_MODEL_EVENT),
+              "Must check which() before get()ing a union member.");
+  return ::capnp::_::PointerHelpers< ::cereal::TrafficModelEvent>::disown(_builder.getPointerField(
       ::capnp::bounded<0>() * ::capnp::POINTERS));
 }
 

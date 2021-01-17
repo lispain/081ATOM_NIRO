@@ -149,20 +149,23 @@ class SpdController():
             model_sum = 0
 
         #model_speed = self.movAvg.get_min(model_speed, 10)
-        
+        delta_model = model_speed - self.old_model_speed
         if self.old_model_init < 10:
             self.old_model_init += 1
             self.old_model_speed = model_speed
             self.old_model_sum = model_sum
         elif self.old_model_speed == model_speed:
             pass
-        elif self.old_model_speed > model_speed:
-            self.old_model_speed = model_speed
+        elif delta_model < -2:
+            self.old_model_speed -= 2  #model_speed
             self.old_model_sum = model_sum
-        else:
+        elif delta_model > 0:
             self.old_model_speed += 0.1
             self.old_model_sum = model_sum
-            pass
+        else:
+            self.old_model_speed = model_speed
+            self.old_model_sum = model_sum
+
 
         return self.old_model_speed, self.old_model_sum
 

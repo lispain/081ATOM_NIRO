@@ -100,13 +100,19 @@ class SpdController():
         self.cruise_set_mode = 0
         self.sc_clu_speed = 0
         self.btn_type = Buttons.NONE
-        self.active_time = 0        
+        self.active_time = 0
+
+        self.old_model_speed = 0
+        self.old_model_sum = 0
+        self.old_model_init = 0
 
     def reset(self):
         self.v_model = 0
         self.a_model = 0
         self.v_cruise = 0
         self.a_cruise = 0
+
+
 
 
     def calc_va(self, sm, v_ego):
@@ -142,9 +148,23 @@ class SpdController():
             model_speed = MAX_SPEED
             model_sum = 0
 
-        model_speed = self.movAvg.get_min(model_speed, 10)
+        #model_speed = self.movAvg.get_min(model_speed, 10)
+        
+        if self.old_model_init < 10:
+            self.old_model_init += 1
+            self.old_model_speed = model_speed
+            self.old_model_sum = model_sum
+        elif self.old_model_speed == model_speed:
+            pass
+        elif self.old_model_speed > model_speed:
+            self.old_model_speed = model_speed
+            self.old_model_sum = model_sum
+        else:
+            self.old_model_speed += 0.1
+            self.old_model_sum = model_sum
+            pass
 
-        return model_speed, model_sum
+        return self.old_model_speed, self.old_model_sum
 
 
     def update_cruiseSW(self, CS ):
@@ -183,7 +203,7 @@ class SpdController():
             self.curise_set_first = 1
             self.prev_VSetDis = int(CS.VSetDis)
             set_speed_kph = CS.VSetDis
-            if not CS.main_on and self.prev_clu_CruiseSwState != CS.cruise_buttons:  # MODE 전환.
+            if not CS.acc_active and self.prev_clu_CruiseSwState != CS.cruise_buttons:  # MODE 전환.
                 if CS.cruise_buttons == Buttons.GAP_DIST: 
                     self.cruise_set_mode += 1
                 if self.cruise_set_mode > 4:

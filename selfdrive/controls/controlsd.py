@@ -112,6 +112,8 @@ class Controls:
     elif self.CP.lateralTuning.which() == 'lqr':
       self.LaC = LatControlLQR(self.CP)
 
+
+    self.startup_event_init = None
     self.model_sum = 0
     self.state = State.disabled
     self.enabled = False
@@ -158,7 +160,8 @@ class Controls:
     self.timer_start = 1500
 
   def auto_enable(self, CS):
-    if self.startup_event != None:
+    if self.startup_event_init == None:
+      self.CI.pcm_enable_cmd = False
       self.timer_alloowed = 500
     elif self.hyundai_lkas or CS.vEgo < 15*CV.KPH_TO_MS or CS.gearShifter != 2:
       if self.timer_alloowed < 100:
@@ -168,7 +171,8 @@ class Controls:
         self.timer_alloowed -= 1
       else:
         self.timer_alloowed = 500
-        self.events.add( EventName.pcmEnable )
+        self.CI.pcm_enable_cmd = True
+        #self.events.add( EventName.pcmEnable )
     else:
         self.timer_alloowed = 100
 
@@ -182,6 +186,7 @@ class Controls:
     # Handle startup event
     if self.startup_event is not None:
       self.events.add(self.startup_event)
+      self.startup_event_init = self.startup_event
       self.startup_event = None
 
     # Create events for battery, temperature, disk space, and memory

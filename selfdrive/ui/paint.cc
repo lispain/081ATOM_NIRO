@@ -518,11 +518,11 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, x_pos, y_pos+350, "tpms:%.1f,%.1f,%.1f,%.1f", fl, fr, rl, rr );
 
 
-  bool curvatureValid = scene.live.MapData.getCurvatureValid();
+  //bool curvatureValid = scene.live.MapData.getCurvatureValid();
   //int   wayId = scene.live.MapData.getWayId();
-  float curvature = scene.live.MapData.getCurvature();
-  float   distToTurn = scene.live.MapData.getDistToTurn();
-  ui_print( s, x_pos, y_pos+350, "way:%d, %.5f,%.5f", curvatureValid,  curvature, distToTurn  );
+  //float curvature = scene.live.MapData.getCurvature();
+  //float   distToTurn = scene.live.MapData.getDistToTurn();
+  //ui_print( s, x_pos, y_pos+350, "way:%d, %.5f,%.5f", curvatureValid,  curvature, distToTurn  );
 
   ui_print( s, 0, 1020, "%s", scene.alert.text1 );
   ui_print( s, 0, 1078, "%s", scene.alert.text2 );

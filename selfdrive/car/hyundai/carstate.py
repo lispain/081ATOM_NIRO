@@ -151,7 +151,11 @@ class CarState(CarStateBase):
       ret.stockAeb = cp.vl["SCC12"]['AEB_CmdAct'] != 0
       ret.stockFcw = cp.vl["SCC12"]['CF_VSM_Warn'] == 2
 
-
+    #TPMS
+    ret.tpms.fl = cp.vl["TPMS11"]['PRESSURE_FL']
+    ret.tpms.fr = cp.vl["TPMS11"]['PRESSURE_FR']
+    ret.tpms.rl = cp.vl["TPMS11"]['PRESSURE_RL']
+    ret.tpms.rr = cp.vl["TPMS11"]['PRESSURE_RR']
 
 
 
@@ -435,14 +439,15 @@ class CarState(CarStateBase):
       ("ACC_ObjRelSpd", "SCC11", 0),
       ("ACC_ObjStatus", "SCC11", 0),
       ("ACC_ObjLatPos", "SCC11", 0),      
-      ("TauGapSet", "SCC11", 4),        
-      ("ACCMode", "SCC12", 1),
-
+      ("TauGapSet", "SCC11", 4),
       ("Navi_SCC_Camera_Act", "SCC11", 0),
       ("Navi_SCC_Camera_Status", "SCC11", 0),
+      ("ACCMode", "SCC12", 1),
 
-
-  
+      ("PRESSURE_FL", "TPMS11", 0),
+      ("PRESSURE_FR", "TPMS11", 0),
+      ("PRESSURE_RL", "TPMS11", 0),
+      ("PRESSURE_RR", "TPMS11", 0),
 
       ("HDA_USM", "LFAHDA_MFC", 0),
       ("HDA_Active","LFAHDA_MFC", 0),

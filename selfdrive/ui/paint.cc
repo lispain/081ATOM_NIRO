@@ -483,7 +483,7 @@ static void ui_draw_debug(UIState *s)
   if (scene.gpsAccuracyUblox != 0.00) 
   {
     nvgFontSize(s->vg, 34);
-    ui_print(s, 28, 28, "%.5f/%.5f/%.5f", scene.latitudeUblox, scene.longitudeUblox, scene.bearingUblox);
+    ui_print(s, 28, 28, "%.5f,%.5f,%.5f", scene.latitudeUblox, scene.longitudeUblox, scene.bearingUblox);
   }
 
   nvgFontSize(s->vg, 36*1.5*fFontSize);
@@ -508,6 +508,15 @@ static void ui_draw_debug(UIState *s)
   float  dPoly = scene.pathPlan.lPoly + scene.pathPlan.rPoly;
   ui_print( s, x_pos, y_pos+300, "Poly:%.2f, %.2f = %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly, dPoly );
  // ui_print( s, x_pos, y_pos+350, "map:%d,cam:%d", scene.live.map_valid, scene.live.speedlimitahead_valid  );
+
+  // tpms
+  auto tpms = scene.car_state.getTpms();
+  float fl = tpms.getFl();
+  float fr = tpms.getFr();
+  float rl = tpms.getRl();
+  float rr = tpms.getRr();
+  ui_print( s, x_pos, y_pos+350, "tpms:%.1f,%.1f,%.1f,%.1f", fl, fr, rl, rr );
+
 
   bool curvatureValid = scene.live.MapData.getCurvatureValid();
   //int   wayId = scene.live.MapData.getWayId();

@@ -18,6 +18,7 @@ class CarInterface(CarInterfaceBase):
   def __init__(self, CP, CarController, CarState):
     super().__init__(CP, CarController, CarState )
 
+    self.cp2 = self.CS.get_can2_parser(CP)
     self.meg_timer = 0
     self.meg_name = 0
     self.pre_button = 0
@@ -160,6 +161,14 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
+    elif candidate == CAR.KIA_NIRO_HEV:
+      ret.lateralTuning.pid.kf = 0.00006
+      ret.mass = 1737. + STD_CARGO_KG
+      ret.wheelbase = 2.7
+      ret.steerRatio = 13.73  # Spec
+      tire_stiffness_factor = 0.385
+      ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
+      ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
     elif candidate in [CAR.KIA_OPTIMA, CAR.KIA_OPTIMA_H]:
       ret.lateralTuning.pid.kf = 0.00005
       ret.mass = 3558. * CV.LB_TO_KG
@@ -286,6 +295,12 @@ class CarInterface(CarInterfaceBase):
 
     ret.enableCamera = True
 
+    # ignore CAN2 address if L-CAN on the same BUS
+    ret.mdpsBus = 1 if 593 in fingerprint[1] and 1296 not in fingerprint[1] else 0
+    ret.sasBus = 1 if 688 in fingerprint[1] and 1296 not in fingerprint[1] else 0
+    ret.sccBus = 0 if 1056 in fingerprint[0] else 1 if 1056 in fingerprint[1] and 1296 not in fingerprint[1] \
+                                                                     else 2 if 1056 in fingerprint[2] else -1
+
     return ret
 
 
@@ -332,9 +347,10 @@ class CarInterface(CarInterfaceBase):
 
   def update(self, c, can_strings):
     self.cp.update_strings(can_strings)
+    self.cp2.update_strings(can_strings)
     self.cp_cam.update_strings(can_strings)
 
-    ret = self.CS.update(self.cp, self.cp_cam)
+    ret = self.CS.update(self.cp, self.cp2, self.cp_cam)
     ret.canValid = self.cp.can_valid and self.cp_cam.can_valid
     #ret.steeringRateLimited = self.CC.steer_rate_limited if self.CC is not None else False
 

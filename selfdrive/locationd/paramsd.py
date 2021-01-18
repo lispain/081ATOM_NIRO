@@ -98,14 +98,14 @@ def main(sm=None, pm=None):
     params = {
       'carFingerprint': CP.carFingerprint,
       'steerRatio': CP.steerRatio,
-      'stiffnessFactor': 1.0,
+      'stiffnessFactor': 0.7,
       'angleOffsetAverage': 0.0,
     }
     cloudlog.info("Parameter learner resetting to default values")
 
   # When driving in wet conditions the stiffness can go down, and then be too low on the next drive
   # Without a way to detect this we have to reset the stiffness every drive
-  params['stiffnessFactor'] = 1.0
+  params['stiffnessFactor'] = 0.7
 
   learner = ParamsLearner(CP, params['steerRatio'], params['stiffnessFactor'], math.radians(params['angleOffsetAverage']))
 

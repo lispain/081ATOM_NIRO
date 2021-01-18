@@ -499,24 +499,11 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, x_pos, y_pos+100, "sF:%.2f", scene.liveParams.stiffnessFactor );
 
   //ui_print( s, x_pos, y_pos+200, "prob:%.2f, %.2f", scene.pathPlan.lProb, scene.pathPlan.rProb );
-  ui_print( s, x_pos, y_pos+200, "prob:%.2f, %.2f, %.2f, %.2f", scene.lane_line_probs[0], scene.lane_line_probs[1], scene.lane_line_probs[2], scene.lane_line_probs[3] );
+  //ui_print( s, x_pos, y_pos+200, "prob:%.2f, %.2f, %.2f, %.2f", scene.lane_line_probs[0], scene.lane_line_probs[1], scene.lane_line_probs[2], scene.lane_line_probs[3] );
   //ui_print( s, x_pos, y_pos+300, "edge:%.2f, %.2f", scene.road_edge_stds[0], scene.road_edge_stds[1] );
 
 
-  ui_print( s, x_pos, y_pos+250, "lW:%.2f  cpuPerc:%d", scene.pathPlan.laneWidth, scene.kegman.cpuPerc );
-
-  float  dPoly = scene.pathPlan.lPoly + scene.pathPlan.rPoly;
-  ui_print( s, x_pos, y_pos+300, "Poly:%.2f, %.2f = %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly, dPoly );
- // ui_print( s, x_pos, y_pos+350, "map:%d,cam:%d", scene.live.map_valid, scene.live.speedlimitahead_valid  );
-
-  // tpms
-  auto tpms = scene.car_state.getTpms();
-  float fl = tpms.getFl();
-  float fr = tpms.getFr();
-  float rl = tpms.getRl();
-  float rr = tpms.getRr();
-  ui_print( s, x_pos, y_pos+350, "tpms:%.1f,%.1f,%.1f,%.1f", fl, fr, rl, rr );
-
+  //ui_print( s, x_pos, y_pos+250, "lW:%.2f  cpuPerc:%d", scene.pathPlan.laneWidth, scene.kegman.cpuPerc );
 
   //bool curvatureValid = scene.live.MapData.getCurvatureValid();
   //int   wayId = scene.live.MapData.getWayId();
@@ -527,12 +514,13 @@ static void ui_draw_debug(UIState *s)
   ui_print( s, 0, 1020, "%s", scene.alert.text1 );
   ui_print( s, 0, 1078, "%s", scene.alert.text2 );
 
-
+  /*
   if( scene.live.speedlimitahead_valid  )
   {
     nvgFontSize(s->vg, 80);
     ui_print( s, x_pos, y_pos+400, "SPD:%.1f, DIST:%.1f", scene.live.speedlimitahead*3.6, scene.live.speedlimitaheaddistance  );
-  }  
+  } 
+  */ 
 
 
 

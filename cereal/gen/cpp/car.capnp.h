@@ -495,7 +495,7 @@ struct CarParams {
   struct LateralTuning;
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(8c69372490aaa9da, 12, 15)
+    CAPNP_DECLARE_STRUCT_HEADER(8c69372490aaa9da, 13, 15)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -635,7 +635,7 @@ struct CarParams::LateralTuning {
   };
 
   struct _capnpPrivate {
-    CAPNP_DECLARE_STRUCT_HEADER(93fc580a35339568, 12, 15)
+    CAPNP_DECLARE_STRUCT_HEADER(93fc580a35339568, 13, 15)
     #if !CAPNP_LITE
     static constexpr ::capnp::_::RawBrandedSchema const* brand() { return &schema->defaultBrand; }
     #endif  // !CAPNP_LITE
@@ -2126,6 +2126,12 @@ public:
   inline bool hasAtomTuning() const;
   inline  ::cereal::CarParams::AtomTuning::Reader getAtomTuning() const;
 
+  inline  ::int8_t getMdpsBus() const;
+
+  inline  ::int8_t getSasBus() const;
+
+  inline  ::int8_t getSccBus() const;
+
 private:
   ::capnp::_::StructReader _reader;
   template <typename, ::capnp::Kind>
@@ -2380,6 +2386,15 @@ public:
   inline  ::cereal::CarParams::AtomTuning::Builder initAtomTuning();
   inline void adoptAtomTuning(::capnp::Orphan< ::cereal::CarParams::AtomTuning>&& value);
   inline ::capnp::Orphan< ::cereal::CarParams::AtomTuning> disownAtomTuning();
+
+  inline  ::int8_t getMdpsBus();
+  inline void setMdpsBus( ::int8_t value);
+
+  inline  ::int8_t getSasBus();
+  inline void setSasBus( ::int8_t value);
+
+  inline  ::int8_t getSccBus();
+  inline void setSccBus( ::int8_t value);
 
 private:
   ::capnp::_::StructBuilder _builder;
@@ -6302,6 +6317,48 @@ inline void CarParams::Builder::adoptAtomTuning(
 inline ::capnp::Orphan< ::cereal::CarParams::AtomTuning> CarParams::Builder::disownAtomTuning() {
   return ::capnp::_::PointerHelpers< ::cereal::CarParams::AtomTuning>::disown(_builder.getPointerField(
       ::capnp::bounded<14>() * ::capnp::POINTERS));
+}
+
+inline  ::int8_t CarParams::Reader::getMdpsBus() const {
+  return _reader.getDataField< ::int8_t>(
+      ::capnp::bounded<82>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int8_t CarParams::Builder::getMdpsBus() {
+  return _builder.getDataField< ::int8_t>(
+      ::capnp::bounded<82>() * ::capnp::ELEMENTS);
+}
+inline void CarParams::Builder::setMdpsBus( ::int8_t value) {
+  _builder.setDataField< ::int8_t>(
+      ::capnp::bounded<82>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::int8_t CarParams::Reader::getSasBus() const {
+  return _reader.getDataField< ::int8_t>(
+      ::capnp::bounded<83>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int8_t CarParams::Builder::getSasBus() {
+  return _builder.getDataField< ::int8_t>(
+      ::capnp::bounded<83>() * ::capnp::ELEMENTS);
+}
+inline void CarParams::Builder::setSasBus( ::int8_t value) {
+  _builder.setDataField< ::int8_t>(
+      ::capnp::bounded<83>() * ::capnp::ELEMENTS, value);
+}
+
+inline  ::int8_t CarParams::Reader::getSccBus() const {
+  return _reader.getDataField< ::int8_t>(
+      ::capnp::bounded<96>() * ::capnp::ELEMENTS);
+}
+
+inline  ::int8_t CarParams::Builder::getSccBus() {
+  return _builder.getDataField< ::int8_t>(
+      ::capnp::bounded<96>() * ::capnp::ELEMENTS);
+}
+inline void CarParams::Builder::setSccBus( ::int8_t value) {
+  _builder.setDataField< ::int8_t>(
+      ::capnp::bounded<96>() * ::capnp::ELEMENTS, value);
 }
 
 inline bool CarParams::AtomTuning::Reader::hasCvKPH() const {

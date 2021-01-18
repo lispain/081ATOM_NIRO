@@ -4113,7 +4113,141 @@ static void __pyx_tp_dealloc_6cereal_9messaging_13messaging_pyx_PubSocket(PyObje
   #endif
   {
     PyObject *etype, *eval, *etb;
-    PyErr_Fetch/data/openpilot/phonelibs/qpoases/INCLUDE/MessageHandling.hpp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   {&__pyx_n_s_MessagingError, __pyx_k_MessagingError, sizeof(__pyx_k_MessagingError), 0, 0, 1, 1},
+    PyErr_Fetch(&etype, &eval, &etb);
+    __Pyx_SET_REFCNT(o, Py_REFCNT(o) + 1);
+    __pyx_pw_6cereal_9messaging_13messaging_pyx_9PubSocket_3__dealloc__(o);
+    __Pyx_SET_REFCNT(o, Py_REFCNT(o) - 1);
+    PyErr_Restore(etype, eval, etb);
+  }
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static PyMethodDef __pyx_methods_6cereal_9messaging_13messaging_pyx_PubSocket[] = {
+  {"connect", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6cereal_9messaging_13messaging_pyx_9PubSocket_5connect, METH_VARARGS|METH_KEYWORDS, 0},
+  {"send", (PyCFunction)__pyx_pw_6cereal_9messaging_13messaging_pyx_9PubSocket_7send, METH_O, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_6cereal_9messaging_13messaging_pyx_9PubSocket_9__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_6cereal_9messaging_13messaging_pyx_9PubSocket_11__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_6cereal_9messaging_13messaging_pyx_PubSocket = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "cereal.messaging.messaging_pyx.PubSocket", /*tp_name*/
+  sizeof(struct __pyx_obj_6cereal_9messaging_13messaging_pyx_PubSocket), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_6cereal_9messaging_13messaging_pyx_PubSocket, /*tp_dealloc*/
+  #if PY_VERSION_HEX < 0x030800b4
+  0, /*tp_print*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4
+  0, /*tp_vectorcall_offset*/
+  #endif
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
+  0, /*tp_doc*/
+  0, /*tp_traverse*/
+  0, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_6cereal_9messaging_13messaging_pyx_PubSocket, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_6cereal_9messaging_13messaging_pyx_PubSocket, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4 && PY_VERSION_HEX < 0x03090000
+  0, /*tp_print*/
+  #endif
+};
+
+static PyMethodDef __pyx_methods[] = {
+  {0, 0, 0, 0}
+};
+
+#if PY_MAJOR_VERSION >= 3
+#if CYTHON_PEP489_MULTI_PHASE_INIT
+static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
+static int __pyx_pymod_exec_messaging_pyx(PyObject* module); /*proto*/
+static PyModuleDef_Slot __pyx_moduledef_slots[] = {
+  {Py_mod_create, (void*)__pyx_pymod_create},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_messaging_pyx},
+  {0, NULL}
+};
+#endif
+
+static struct PyModuleDef __pyx_moduledef = {
+    PyModuleDef_HEAD_INIT,
+    "messaging_pyx",
+    0, /* m_doc */
+  #if CYTHON_PEP489_MULTI_PHASE_INIT
+    0, /* m_size */
+  #else
+    -1, /* m_size */
+  #endif
+    __pyx_methods /* m_methods */,
+  #if CYTHON_PEP489_MULTI_PHASE_INIT
+    __pyx_moduledef_slots, /* m_slots */
+  #else
+    NULL, /* m_reload */
+  #endif
+    NULL, /* m_traverse */
+    NULL, /* m_clear */
+    NULL /* m_free */
+};
+#endif
+#ifndef CYTHON_SMALL_CODE
+#if defined(__clang__)
+    #define CYTHON_SMALL_CODE
+#elif defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3))
+    #define CYTHON_SMALL_CODE __attribute__((cold))
+#else
+    #define CYTHON_SMALL_CODE
+#endif
+#endif
+
+static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_kp_b_127_0_0_1, __pyx_k_127_0_0_1, sizeof(__pyx_k_127_0_0_1), 0, 0, 0, 0},
+  {&__pyx_n_s_Context, __pyx_k_Context, sizeof(__pyx_k_Context), 0, 0, 1, 1},
+  {&__pyx_n_s_MessagingError, __pyx_k_MessagingError, sizeof(__pyx_k_MessagingError), 0, 0, 1, 1},
   {&__pyx_n_s_MultiplePublishersError, __pyx_k_MultiplePublishersError, sizeof(__pyx_k_MultiplePublishersError), 0, 0, 1, 1},
   {&__pyx_n_s_Poller, __pyx_k_Poller, sizeof(__pyx_k_Poller), 0, 0, 1, 1},
   {&__pyx_n_s_PubSocket, __pyx_k_PubSocket, sizeof(__pyx_k_PubSocket), 0, 0, 1, 1},

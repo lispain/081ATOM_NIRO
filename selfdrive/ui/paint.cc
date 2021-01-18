@@ -504,9 +504,11 @@ static void ui_draw_debug(UIState *s)
 
 
   //ui_print( s, x_pos, y_pos+250, "lW:%.2f  cpuPerc:%d", scene.pathPlan.laneWidth, scene.kegman.cpuPerc );
-  // ui_print( s, x_pos, y_pos+350, "map:%d,cam:%d", scene.live.map_valid, scene.live.speedlimitahead_valid  );
 
-  /*
+  float  dPoly = scene.pathPlan.lPoly + scene.pathPlan.rPoly;
+  //ui_print( s, x_pos, y_pos+300, "Poly:%.2f, %.2f = %.2f", scene.pathPlan.lPoly, scene.pathPlan.rPoly, dPoly );
+ // ui_print( s, x_pos, y_pos+350, "map:%d,cam:%d", scene.live.map_valid, scene.live.speedlimitahead_valid  );
+
   // tpms
   auto tpms = scene.car_state.getTpms();
   float fl = tpms.getFl();
@@ -514,7 +516,6 @@ static void ui_draw_debug(UIState *s)
   float rl = tpms.getRl();
   float rr = tpms.getRr();
   //ui_print( s, x_pos, y_pos+350, "tpms:%.1f,%.1f,%.1f,%.1f", fl, fr, rl, rr );
-  */
 
 
   //bool curvatureValid = scene.live.MapData.getCurvatureValid();

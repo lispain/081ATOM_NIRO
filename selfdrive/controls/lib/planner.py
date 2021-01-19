@@ -209,6 +209,15 @@ class Planner():
     # Send out fcw
     plan_send.plan.fcw = fcw
 
+    # Send radarstate(dRel, vRel, yRel)
+    plan_send.plan.dRel1 = lead_1.dRel
+    plan_send.plan.yRel1 = lead_1.yRel
+    plan_send.plan.vRel1 = lead_1.vRel
+    plan_send.plan.dRel2 = lead_2.dRel
+    plan_send.plan.yRel2 = lead_2.yRel
+    plan_send.plan.vRel2 = lead_2.vRel
+    plan_send.plan.status2 = lead_2.status
+
     pm.send('plan', plan_send)
 
     # Interpolate 0.05 seconds and save as starting point for next iteration

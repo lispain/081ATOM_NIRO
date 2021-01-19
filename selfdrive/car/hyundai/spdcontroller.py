@@ -221,12 +221,12 @@ class SpdController():
 
 
     @staticmethod
-    def get_lead( sm ):
-        lead_msg = sm['model'].lead
-        if lead_msg.prob > 0.5:
-            dRel = float(lead_msg.dist - RADAR_TO_CAMERA)
-            yRel = float(lead_msg.relY)
-            vRel = float(lead_msg.relVel)
+   def get_lead( sm ):
+        plan = sm['plan']
+        if 0 < plan.dRel1 < 149:
+            dRel = int(plan.dRel1) #EON Lead
+            yRel = int(plan.yRel1) #EON Lead
+            vRel = int(plan.vRel1 * 3.6 + 0.5) #EON Lead
         else:
             dRel = 150
             yRel = 0

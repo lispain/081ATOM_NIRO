@@ -10,34 +10,63 @@ import common.log as trace1
 class SpdctrlNormal(SpdController):
     def __init__(self, CP=None):
         super().__init__( CP )
-        self.cv_Raio = 0.6
+        self.cv_Raio = 0.4
         self.cv_Dist = -5
 
-    def update_lead(self, CS,  dRel, yRel, vRel):
+    def update_lead(self, sm, CS, dRel, yRel, vRel):
+        plan = sm['plan']
+        dRele = plan.dRel1 #EON Lead
+        yRele = plan.yRel1 #EON Lead
+        vRele = plan.vRel1 * 3.6 + 0.5 #EON Lead
+        dRelef = plan.dRel2 #EON Lead
+        yRelef = plan.yRel2 #EON Lead
+        vRelef = plan.vRel2 * 3.6 + 0.5 #EON Lead
+        lead2_status = plan.status2
+
         lead_set_speed = self.cruise_set_speed_kph
         lead_wait_cmd = 600
+
+        dRel = 150
+        vRel = 0
+        dRel2 = 140
+        vRel2 = 0
+
         if int(self.cruise_set_mode) != 2:
             return lead_wait_cmd, lead_set_speed
 
         #dRel, yRel, vRel = self.get_lead( sm, CS )
-        if CS.lead_distance < 150:
-            dRel = CS.lead_distance
-            vRel = CS.lead_objspd
+        if 1 < dRele < 149:
+            dRel = int(dRele) # dRele(이온 차간간격)값 사용
+            vRel = int(vRele)
+        elif 1 < CS.lead_distance < 149:
+            dRel = int(CS.lead_distance) # CS.lead_distance(레이더 차간간격)값 사용
+            vRel = int(CS.lead_objspd)
+        else:
+            dRel = 150
+            vRel = 0
 
-        dst_lead_distance = (CS.clu_Vanz*self.cv_Raio)   # 유지 거리.
+        if 1 < dRelef < 140:
+            dRel2 = int(dRelef)
+            vRel2 = int(vRelef) # for cut-in detection??
+
+        dst_lead_distance = int(CS.clu_Vanz*self.cv_Raio)   # 기준 유지 거리
+        dst_lead_distance2 = int(CS.clu_Vanz*0.4)   # 기준 유지 거리
         
         if dst_lead_distance > 100:
             dst_lead_distance = 100
-        elif dst_lead_distance < 30:
-            dst_lead_distance = 30
 
-        if dRel < 150:
+        if 1 < dRel < 149: #앞차와의 간격이 150미터 미만이면, 즉 앞차가 인식되면,
             self.time_no_lean = 0
             d_delta = dRel - dst_lead_distance
             lead_objspd = vRel  # 선행차량 상대속도.
         else:
             d_delta = 0
             lead_objspd = 0
+
+        if 1 < dRel2 < 140:
+            d_delta2 = dRel2 - dst_lead_distance2
+        else:
+            d_delta2 = 0
  
         # 가속이후 속도 설정.
         if CS.driverAcc_time:

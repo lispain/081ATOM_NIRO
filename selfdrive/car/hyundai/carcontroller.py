@@ -48,11 +48,7 @@ class CarController():
     self.dRel = 0
     self.yRel = 0
     self.vRel = 0
-    self.dRel2 = 0
-    self.yRel2 = 0
-    self.vRel2 = 0
-    self.lead2_status = False
-    
+
     self.movAvg = moveavg1.MoveAvg()
     self.timer1 = tm.CTime1000("time")
     self.model_speed = 0
@@ -224,15 +220,8 @@ class CarController():
     actuators = c.actuators
     pcm_cancel_cmd = c.cruiseControl.cancel
 
-    plan = sm['plan']
-    self.dRel = int(plan.dRel1) #EON Lead
-    self.yRel = int(plan.yRel1) #EON Lead
-    self.vRel = int(plan.vRel1 * 3.6 + 0.5) #EON Lead
-    self.dRel2 = int(plan.dRel2) #EON Lead
-    self.yRel2 = int(plan.yRel2) #EON Lead
-    self.vRel2 = int(plan.vRel2 * 3.6 + 0.5) #EON Lead
-    self.lead2_status = plan.status2
-
+    path_plan = sm['pathPlan']
+    self.dRel, self.yRel, self.vRel = SpdController.get_lead( sm )
     if self.SC is not None:
       self.model_speed, self.model_sum = self.SC.calc_va(  sm, CS.out.vEgo  )
     else:

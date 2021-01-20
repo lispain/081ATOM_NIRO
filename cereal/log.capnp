@@ -555,7 +555,7 @@ struct ControlsState @0x97ff69c53601abf1 {
   alertTextMsg1  @59 :Text;
   alertTextMsg2  @60 :Text;
   modelSum  @61 :Float32;
-  
+
   lateralControlState :union {
     indiState @52 :LateralINDIState;
     pidState @53 :LateralPIDState;
@@ -843,14 +843,6 @@ struct Plan {
   radarCanError @30 :Bool;
 
   processingDelay @29 :Float32;
-
-  dRel1 @32 :Float32;
-  yRel1 @33 :Float32;
-  vRel1 @34 :Float32;
-  dRel2 @35 :Float32;
-  yRel2 @36 :Float32;
-  vRel2 @37 :Float32;
-  status2 @38 :Bool;
 
 
   struct GpsTrajectory {

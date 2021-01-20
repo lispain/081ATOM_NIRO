@@ -221,7 +221,7 @@ class SpdController():
 
 
     @staticmethod
-    def get_lead( sm ):
+   def get_lead( sm ):
         plan = sm['plan']
         if 0 < plan.dRel1 < 149:
             dRel = int(plan.dRel1) #EON Lead
